@@ -1,22 +1,20 @@
 import java.io.Serializable;
 import java.time.LocalDate;
 
-public class ThuongPhat {
+public class ThuongPhat implements Serializable {
     private String maTP;
-    private NhanSu nhanSu;
+    private String maNV;  
     private double soTien;
-    private String loai; // "Thuong" hoac "Phat"
+    private String loai;  // "Thuong" hoặc "Phat"
     private String lyDo;
     private LocalDate ngay;
 
     public ThuongPhat() {
-        this.nhanSu = new NhanSu();
     }
 
-    public ThuongPhat(String maTP, String maNS, double soTien, String loai, String lyDo, LocalDate ngay) {
+    public ThuongPhat(String maTP, String maNV, double soTien, String loai, String lyDo, LocalDate ngay) {
         this.maTP = maTP;
-        this.nhanSu = new NhanSu();
-        this.nhanSu.setMa(maNS);
+        this.maNV = maNV;
         this.soTien = soTien;
         this.loai = loai;
         this.lyDo = lyDo;
@@ -28,12 +26,8 @@ public class ThuongPhat {
         return maTP;
     }
 
-    public NhanSu getNhanSu() {
-        return nhanSu;
-    }
-
-    public String getMaNhanSu() {
-        return nhanSu != null ? nhanSu.getMa() : null;
+    public String getMaNV() {
+        return maNV;
     }
 
     public double getSoTien() {
@@ -57,15 +51,8 @@ public class ThuongPhat {
         this.maTP = maTP;
     }
 
-    public void setNhanSu(NhanSu nhanSu) {
-        this.nhanSu = nhanSu;
-    }
-
-    public void setMaNhanSu(String maNS) {
-        if (this.nhanSu == null) {
-            this.nhanSu = new NhanSu();
-        }
-        this.nhanSu.setMa(maNS);
+    public void setMaNV(String maNV) {
+        this.maNV = maNV;
     }
 
     public void setSoTien(double soTien) {
@@ -84,11 +71,11 @@ public class ThuongPhat {
         this.ngay = ngay;
     }
 
-    // Xuat thong tin
+    // Xuất thông tin
     public void xuat() {
         System.out.println("==============================");
-        System.out.println("Mã: " + maTP);
-        System.out.println("Mã nhân sự: " + (nhanSu != null ? nhanSu.getMa() : "N/A"));
+        System.out.println("Mã thưởng/phạt: " + maTP);
+        System.out.println("Mã nhân viên: " + (maNV != null ? maNV : "N/A"));
         System.out.println("Loại: " + loai);
         System.out.println("Số tiền: " + String.format("%,.0f", soTien) + " VND");
         System.out.println("Lý do: " + lyDo);
@@ -100,7 +87,7 @@ public class ThuongPhat {
     public String toString() {
         return String.format("%-10s | %-10s | %-10s | %,15.0f | %-20s | %s",
                 maTP,
-                nhanSu != null ? nhanSu.getMa() : "N/A",
+                maNV != null ? maNV : "N/A",
                 loai,
                 soTien,
                 lyDo != null && lyDo.length() > 20 ? lyDo.substring(0, 17) + "..." : lyDo,

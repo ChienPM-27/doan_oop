@@ -4,7 +4,6 @@ public class QuanLyBangLuong {
 
     private BangLuong[] bl = new BangLuong[100];
     private int soLuong = 0;
-    private DocGhiFile docGhiFile = new DocGhiFile();
 
     public void menu() {
         Scanner sc = new Scanner(System.in);
@@ -84,7 +83,6 @@ public class QuanLyBangLuong {
     }
 
     public void docDuLieu() {
-        Object[] data = docGhiFile.docFile("bangluong.dat");
         if (data != null) {
             bl = new BangLuong[data.length];
             for (int i = 0; i < data.length; i++) {

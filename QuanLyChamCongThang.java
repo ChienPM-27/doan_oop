@@ -69,7 +69,7 @@ public class QuanLyChamCongThang {
         System.out.println("\n=== KET QUA TIM KIEM ===");
 
         for (int i = 0; i < soluong; i++) {
-            if (chamcong[i].getMaNhansu().equals(manv)) {
+            if (chamcong[i].getManv().equals(manv)) {
                 chamcong[i].xuat();
                 timThay = true;
             }

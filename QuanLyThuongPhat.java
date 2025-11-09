@@ -77,7 +77,7 @@ public class QuanLyThuongPhat {
 
         for (int i = 0; i < soLuong; i++) {
             if (dsThuongPhat[i] != null) {
-                String ma = dsThuongPhat[i].getMaNhanSu();
+                String ma = dsThuongPhat[i].getMaNV();
                 if (ma != null && ma.equals(maNV)) {
                     dsThuongPhat[i].xuat();
                     timThay = true;
@@ -123,7 +123,7 @@ public class QuanLyThuongPhat {
 
         for (int i = 0; i < soLuong; i++) {
             if (dsThuongPhat[i] != null) {
-                String ma = dsThuongPhat[i].getMaNhanSu();
+                String ma = dsThuongPhat[i].getMaNV();
                 if (ma != null && ma.equals(maNV)) {
                     String loai = dsThuongPhat[i].getLoai();
                     if (loai != null && loai.equalsIgnoreCase("Thuong")) {

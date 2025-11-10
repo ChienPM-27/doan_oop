@@ -1,8 +1,7 @@
-import java.io.Serializable;
+
 import java.time.LocalDate;
 
-public class HopDong implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class HopDong {
     private String maHD;
     private String manv;
     private String loaiHD;

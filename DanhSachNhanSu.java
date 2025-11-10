@@ -1,13 +1,17 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 
-public class QuanLyNhanSu {
+
+public class DanhSachNhanSu {
     private NhanSu[] dsNhanSu;
     private int soLuong;
     private static final int MAX = 1000;
     private Scanner sc = new Scanner(System.in);
     
-    public QuanLyNhanSu() {
-        dsNhanSu = new NhanSu[MAX];
+    public DanhSachNhanSu() {
+        dsNhanSu = new NhanSu[MAX]; 
         soLuong = 0;
     }
     
@@ -228,22 +232,22 @@ public class QuanLyNhanSu {
             tongTuoi += dsNhanSu[i].tinhTuoi();
         }
         
-        System.out.println("\n╔════════════════════════════════════════════════╗");
-        System.out.println("║           THỐNG KÊ NHÂN SỰ                    ║");
+        System.out.println("\n╔══════════════════════════════════════════════╗");
+        System.out.println("║           THỐNG KÊ NHÂN SỰ                     ║");
         System.out.println("╠════════════════════════════════════════════════╣");
-        System.out.printf("║ Tổng số nhân sự           : %-17d ║%n", soLuong);
-        System.out.printf("║ Nhân viên chính thức       : %-17d ║%n", nvChinhThuc);
-        System.out.printf("║ Nhân viên thực tập         : %-17d ║%n", nvThucTap);
+        System.out.printf(" ║ Tổng số nhân sự           : %-17d  ║%n", soLuong);
+        System.out.printf(" ║ Nhân viên chính thức       : %-17d ║%n", nvChinhThuc);
+        System.out.printf(" ║ Nhân viên thực tập         : %-17d ║%n", nvThucTap);
         System.out.println("╠════════════════════════════════════════════════╣");
-        System.out.printf("║ Nhân viên nam              : %-17d ║%n", nam);
-        System.out.printf("║ Nhân viên nữ               : %-17d ║%n", nu);
+        System.out.printf(" ║ Nhân viên nam              : %-17d ║%n", nam);
+        System.out.printf(" ║ Nhân viên nữ               : %-17d ║%n", nu);
         System.out.println("╠════════════════════════════════════════════════╣");
         
         if (soLuong > 0) {
             double tuoiTB = (double) tongTuoi / soLuong;
-            System.out.printf("║ Tuổi trung bình            : %-17.1f ║%n", tuoiTB);
+            System.out.printf("║ Tuổi trung bình       : %-17.1f ║%n", tuoiTB);
         } else {
-            System.out.printf("║ Tuổi trung bình            : %-17s ║%n", "N/A");
+            System.out.printf("║ Tuổi trung bình         : %-17s ║%n", "N/A");
         }
         
         System.out.println("╚════════════════════════════════════════════════╝");
@@ -337,24 +341,86 @@ public class QuanLyNhanSu {
         System.out.println("✅ Cập nhật thông tin thành công!");
     }
     
+    public void docFile() {
+        try (BufferedReader br = new BufferedReader(new FileReader("DSNhanSu.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                line = line.trim();
+                if (line.isEmpty()) continue;
+
+                String[] parts = line.split(",");
+                if (parts.length < 11) {
+                    System.out.println("⚠️ Dòng sai định dạng: " + line);
+                    continue;
+                }
+
+                int loai = Integer.parseInt(parts[0]);
+                String ma = parts[1];
+                String ho = parts[2];
+                String ten = parts[3];
+                String gt = parts[4];
+                String diachi = parts[5];
+                String trangthai = parts[6];
+                String macv = parts[7];
+                int ngay = Integer.parseInt(parts[8]);
+                int thang = Integer.parseInt(parts[9]);
+                int nam = Integer.parseInt(parts[10]);
+
+                NhanSu ns;
+                
+                if (loai == 1) {
+                    if (parts.length < 14) {
+                        System.out.println("⚠️ Thiếu thông tin NVCT: " + line);
+                        continue;
+                    }
+                    double luongcoban = Double.parseDouble(parts[11]);
+                    String ngayvaolam = parts[12];
+                    String phongban = parts[13];
+                    
+                    ns = new NhanVienChinhThuc(ma, ho, ten, gt, diachi, trangthai, macv,
+                                            ngay, thang, nam, luongcoban, ngayvaolam, phongban);
+                } else {
+                    if (parts.length < 14) {
+                        System.out.println("⚠️ Thiếu thông tin NVTT: " + line);
+                        continue;
+                    }
+                    String thoigiantt = parts[11];
+                    String truonghoc = parts[12];
+                    String nganhhoc = parts[13];
+                    
+                    ns = new NhanVienThucTap(ma, ho, ten, gt, diachi, trangthai, macv,
+                                            ngay, thang, nam, thoigiantt, truonghoc, nganhhoc);
+                }
+
+                dsNhanSu[soLuong++] = ns;
+            }
+
+            System.out.println("✅ Đọc file DSNhanSu.txt thành công (" + soLuong + " nhân sự).");
+
+        } catch (IOException e) {
+            System.out.println("❌ Lỗi đọc file: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            System.out.println("❌ Lỗi dữ liệu số: " + e.getMessage());
+        }
+    }    
     // ===== MENU CHÍNH =====
     public void menu() {
         int chon;
         do {
-            System.out.println("\n╔════════════════════════════════════════════════╗");
-            System.out.println("║          HỆ THỐNG QUẢN LÝ NHÂN SỰ            ║");
+            System.out.println("\n╔══════════════════════════════════════════════╗");
+            System.out.println("║          HỆ THỐNG QUẢN LÝ NHÂN SỰ              ║");
             System.out.println("╠════════════════════════════════════════════════╣");
-            System.out.println("║  1. Thêm nhân sự                              ║");
-            System.out.println("║  2. Xóa nhân sự theo mã                       ║");
-            System.out.println("║  3. Tìm kiếm theo mã                          ║");
-            System.out.println("║  4. Tìm kiếm theo loại (ID 1 hoặc 2)         ║");
-            System.out.println("║  5. Sửa thông tin nhân sự                     ║");
-            System.out.println("║  6. Hiển thị tất cả nhân sự                   ║");
-            System.out.println("║  7. Hiển thị NV chính thức                    ║");
-            System.out.println("║  8. Hiển thị NV thực tập                      ║");
-            System.out.println("║  9. Thống kê tổng quan                        ║");
-            System.out.println("║ 10. Thống kê theo phòng ban                   ║");
-            System.out.println("║  0. Thoát                                     ║");
+            System.out.println("║  1. Thêm nhân sự                               ║");
+            System.out.println("║  2. Xóa nhân sự theo mã                        ║");
+            System.out.println("║  3. Tìm kiếm theo mã                           ║");
+            System.out.println("║  4. Tìm kiếm theo loại (ID 1 hoặc 2)           ║");
+            System.out.println("║  5. Sửa thông tin nhân sự                      ║");
+            System.out.println("║  6. Hiển thị tất cả nhân sự                    ║");
+            System.out.println("║  7. Hiển thị NV chính thức                     ║");
+            System.out.println("║  8. Hiển thị NV thực tập                       ║");
+            System.out.println("║  9. Thống kê tổng quan                         ║");
+            System.out.println("║ 10. Thống kê theo phòng ban                    ║");
+            System.out.println("║  0. Thoát                                      ║");
             System.out.println("╚════════════════════════════════════════════════╝");
             System.out.print("👉 Chọn chức năng: ");
             
@@ -404,5 +470,13 @@ public class QuanLyNhanSu {
             }
             
         } while (chon != 0);
+    }
+    
+    public NhanSu[] getDsNhanSu() {
+    return dsNhanSu;
+    }
+
+    public int getSoLuong() {
+        return soLuong;
     }
 }

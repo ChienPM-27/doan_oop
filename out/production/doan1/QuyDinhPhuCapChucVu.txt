@@ -1,0 +1,25 @@
+CV001,Giám đốc điều hành,8000,Phụ cấp cao nhất theo quy định
+CV002,Phó giám đốc,6500,Hỗ trợ quản lý và điều hành
+CV003,Trưởng phòng kinh doanh,5000,Thưởng theo doanh số quý
+CV004,Trưởng phòng kỹ thuật,4800,Hỗ trợ kỹ năng chuyên môn cao
+CV005,Trưởng phòng nhân sự,4500,Phụ cấp lãnh đạo trung cấp
+CV006,Trưởng nhóm dự án,3500,Hỗ trợ trách nhiệm nhóm
+CV007,Chuyên viên cao cấp,3000,Phụ cấp trình độ chuyên sâu
+CV008,Chuyên viên phân tích,2700,Hỗ trợ công tác báo cáo
+CV009,Kỹ sư phần mềm,2500,Phụ cấp theo thâm niên
+CV010,Chuyên viên nhân sự,2200,Phụ cấp hỗ trợ đào tạo
+CV011,Kế toán trưởng,4000,Thưởng trách nhiệm tài chính
+CV012,Kế toán viên,1800,Hỗ trợ chứng từ kế toán
+CV013,Nhân viên hành chính,1500,Hỗ trợ công tác văn phòng
+CV014,Nhân viên chăm sóc khách hàng,1300,Phụ cấp giao tiếp
+CV015,Nhân viên marketing,2000,Phụ cấp truyền thông
+CV016,Nhân viên kỹ thuật,2300,Phụ cấp rủi ro công việc
+CV017,Nhân viên bảo trì,2100,Hỗ trợ dụng cụ và vật tư
+CV018,Thực tập sinh kỹ thuật,900,Phụ cấp cơ bản
+CV019,Thực tập sinh văn phòng,800,Phụ cấp hỗ trợ học tập
+CV020,Trưởng nhóm bán hàng,3200,Hỗ trợ doanh thu nhóm
+CV021,Nhân viên bán hàng,1800,Phụ cấp doanh số
+CV022,Nhân viên kế hoạch,2400,Hỗ trợ lập kế hoạch sản xuất
+CV023,Nhân viên thiết kế,2600,Phụ cấp sáng tạo
+CV024,Nhân viên logistics,2800,Hỗ trợ vận chuyển hàng hóa
+CV025,Nhân viên bảo vệ,1200,Hỗ trợ ca đêm và lễ tết

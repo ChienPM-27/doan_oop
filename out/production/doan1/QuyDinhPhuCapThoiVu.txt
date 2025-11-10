@@ -1,0 +1,25 @@
+PC001,NV ban thoi gian,1800.0,VNĐ/giờ
+PC002,Cong tac vien,1500.0,VNĐ/giờ
+PC003,Thuc tap sinh,900.0,VNĐ/giờ
+PC004,Nhan vien ban thoi gian,2000.0,VNĐ/giờ
+PC005,Nhan vien phuc vu,1200.0,VNĐ/giờ
+PC006,Nhan vien bao ve,1300.0,VNĐ/giờ
+PC007,Nhan vien ve sinh,1000.0,VNĐ/giờ
+PC008,Cong tac vien su kien,2500.0,VNĐ/giờ
+PC009,Nhan vien kho,1600.0,VNĐ/giờ
+PC010,Thuc tap sinh ky thuat,1100.0,VNĐ/giờ
+PC011,Cong tac vien marketing,2300.0,VNĐ/giờ
+PC012,Cong tac vien ban hang,2400.0,VNĐ/giờ
+PC013,Nhan vien phan phoi,1700.0,VNĐ/giờ
+PC014,Cong tac vien van phong,1900.0,VNĐ/giờ
+PC015,Nhan vien quay phim,2800.0,VNĐ/giờ
+PC016,Nhan vien am thanh,2600.0,VNĐ/giờ
+PC017,Nhan vien bao tri,2200.0,VNĐ/giờ
+PC018,Nhan vien giao hang,2100.0,VNĐ/giờ
+PC019,Thuc tap sinh kinh doanh,950.0,VNĐ/giờ
+PC020,Nhan vien thu ngan,2000.0,VNĐ/giờ
+PC021,Nhan vien phu bep,1500.0,VNĐ/giờ
+PC022,Cong tac vien dao tao,2700.0,VNĐ/giờ
+PC023,Nhan vien le tan,1800.0,VNĐ/giờ
+PC024,Cong tac vien thiet ke,3000.0,VNĐ/giờ
+PC025,Nhan vien van chuyen,1600.0,VNĐ/giờ

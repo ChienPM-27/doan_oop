@@ -93,7 +93,7 @@ public class NhanVienChinhThuc extends NhanSu {
         System.out.printf("║ Địa chỉ      : %-30s ║%n", diachi);
         System.out.printf("║ Trạng thái   : %-30s ║%n", trangthai);
         System.out.printf("║ Mã chức vụ   : %-30s ║%n", macv);
-        System.out.printf("║ Lương CB     : %,30.0f ║%n", luongcoban);
+        System.out.printf("║ Lương CB     : %,30.0f║%n", luongcoban);
         System.out.printf("║ Ngày vào làm : %-30s ║%n", ngayvaolam);
         System.out.printf("║ Phòng ban    : %-30s ║%n", phongban);
         System.out.printf("║ Loại NV      : %-30s ║%n", getLoaiNV());

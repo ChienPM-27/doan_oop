@@ -1,16 +1,27 @@
 
-import java.io.Serializable;
+
 import java.util.Scanner;
 
-public class DuAn implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class DuAn {
     private String maDA;
     private String tenDA;
-    private String ngayBD;
-    private String ngayKT;
+    private int ngayBD;
+    private int ngayKT;
     private double kinhphi;
     private double thuongDA;
+    //constructor
+    public DuAn(){
+
+    }
+    //constructor có tham số
+    public DuAn(String maDA, String tenDA, int ngayBD, int ngayKT, double kinhPhi, double thuongDA){
+        this.maDA = maDA;
+        this.tenDA = tenDA;
+        this.ngayBD = ngayBD;
+        this.ngayKT = ngayKT;
+        this.kinhphi = kinhphi;
+        this.thuongDA = thuongDA;
+    }
     // Hàm nhập thông tin dự án
 
     public void nhap() {
@@ -20,9 +31,11 @@ public class DuAn implements Serializable {
         System.out.print("Nhap ten du an: ");
         tenDA = sc.nextLine();
         System.out.print("Nhap ngay bat dau: ");
-        ngayBD = sc.nextLine();
+        ngayBD = sc.nextInt();
+        sc.nextLine();
         System.out.print("Nhap ngay ket thuc: ");
-        ngayKT = sc.nextLine();
+        ngayKT = sc.nextInt();
+        sc.nextLine();
         System.out.print("Nhap kinh phi: ");
         kinhphi = sc.nextDouble();
         System.out.print("Nhap thuong du an: ");
@@ -39,11 +52,11 @@ public class DuAn implements Serializable {
         this.tenDA = tenDA;
     }
 
-    public void setNgayBD(String ngayBD) {
+    public void setNgayBD(int ngayBD) {
         this.ngayBD = ngayBD;
     }
 
-    public void setNgayKT(String ngayKT) {
+    public void setNgayKT(int ngayKT) {
         this.ngayKT = ngayKT;
     }
 
@@ -64,11 +77,11 @@ public class DuAn implements Serializable {
         return tenDA;
     }
 
-    public String getNgayBD() {
+    public int getNgayBD() {
         return ngayBD;
     }
 
-    public String getNgayKT() {
+    public int getNgayKT() {
         return ngayKT;
     }
 

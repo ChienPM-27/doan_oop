@@ -1,7 +1,7 @@
-import java.io.Serializable;
 
-public class PhanCong implements Serializable{
-    private static final long serialVersionUID = 1L;
+
+public class PhanCong {
+
     private String maNV;
     private String maDA;
     private String vaitro;

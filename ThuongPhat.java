@@ -1,7 +1,7 @@
-import java.io.Serializable;
+
 import java.time.LocalDate;
 
-public class ThuongPhat implements Serializable {
+public class ThuongPhat  {
     private String maTP;
     private String maNV;  
     private double soTien;

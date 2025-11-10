@@ -1,0 +1,10 @@
+1,NV001,Nguyen Van,An,Nam,Ha Noi,Dang lam,CV01,15,5,1990,15000000,01/01/2020,Kinh doanh
+1,NV002,Tran Thi,Binh,Nu,HCM,Dang lam,CV02,20,8,1992,12000000,15/03/2021,Ke toan
+1,NV003,Le Van,Cuong,Nam,Da Nang,Dang lam,CV03,10,12,1988,20000000,01/06/2019,Ky thuat
+1,NV004,Pham Thi,Dung,Nu,Hai Phong,Dang lam,CV01,25,3,1995,10000000,20/09/2022,Hanh chinh
+1,NV005,Hoang Van,Em,Nam,Can Tho,Dang lam,CV04,5,7,1985,25000000,10/01/2018,Quan ly
+2,NV006,Nguyen Thi,Nga,Nu,Ha Noi,Thuc tap,CV05,12,11,2002,3 thang,DH Bach Khoa HN,Cong nghe thong tin
+2,NV007,Vo Van,Hai,Nam,HCM,Thuc tap,CV05,8,4,2003,6 thang,DH Kinh te TP HCM,Quan tri kinh doanh
+2,NV008,Bui Thi,Hoa,Nu,Da Nang,Thuc tap,CV05,18,9,2001,3 thang,DH Da Nang,Ke toan
+1,NV009,Dang Van,Khanh,Nam,Hue,Dang lam,CV02,22,6,1993,13000000,05/11/2020,Marketing
+2,NV010,Truong Thi,Lan,Nu,Nha Trang,Thuc tap,CV05,30,1,2002,4 thang,DH Nha Trang,Du lich

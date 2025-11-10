@@ -1,4 +1,4 @@
-import java.io.Serializable;
+
 
 public class BangLuong{
     private String maBL;
@@ -37,8 +37,8 @@ public class BangLuong{
 
         for (int i = 0; i < soLuongTP; i++) {
             if (dsThuongPhat[i] != null &&
-                dsThuongPhat[i].getMaNhanSu() != null &&
-                dsThuongPhat[i].getMaNhanSu().equals(manv)) {
+                dsThuongPhat[i].getMaNV() != null &&
+                dsThuongPhat[i].getMaNV().equals(manv)) {
 
                 String loai = dsThuongPhat[i].getLoai();
                 if (loai != null) {

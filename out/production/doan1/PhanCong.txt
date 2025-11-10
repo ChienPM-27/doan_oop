@@ -1,0 +1,25 @@
+NV001,DA001,Trưởng nhóm,3000000
+NV002,DA001,Lập trình viên,1800000
+NV003,DA001,Kiểm thử viên,1500000
+NV004,DA001,Thực tập sinh,800000
+NV001,DA002,Thiết kế hệ thống,2200000
+NV002,DA002,Lập trình viên,1900000
+NV005,DA002,Quản lý dự án,3500000
+NV003,DA003,DevOps,2100000
+NV006,DA003,Kiến trúc sư hệ thống,4000000
+NV007,DA003,Phân tích nghiệp vụ,2500000
+NV002,DA004,Lập trình viên chính,2300000
+NV004,DA004,Tester chính,1600000
+NV008,DA004,Thực tập sinh,900000
+NV005,DA005,Giám sát kỹ thuật,3200000
+NV009,DA005,Kiểm thử viên,1500000
+NV010,DA005,Hỗ trợ dự án,1200000
+NV003,DA006,DevOps,2000000
+NV006,DA006,Chuyên viên an ninh mạng,3800000
+NV007,DA006,Thiết kế UI/UX,2500000
+NV008,DA007,Lập trình web,1900000
+NV009,DA007,Tester tự động,1400000
+NV010,DA007,Quản trị cơ sở dữ liệu,2700000
+NV001,DA008,Trưởng nhóm,3100000
+NV002,DA008,Lập trình viên,1800000
+NV011,DA008,Thực tập sinh,850000

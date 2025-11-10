@@ -1,0 +1,10 @@
+NV001,1500000,Thuong,Hoan thanh xuat sac du an
+NV002,-300000,Phat,Di tre 3 lan trong thang
+NV003,500000,Thuong,Dat chi tieu quy
+NV004,-200000,Phat,Khong hoan thanh bao cao dung han
+NV005,1000000,Thuong,De xuat sang kien cai tien
+NV006,300000,Thuong,Cham chi thuc tap
+NV007,-100000,Phat,Di tre
+NV008,200000,Thuong,Ho tro du an tot
+NV009,400000,Thuong,Hoan thanh tot nhiem vu
+NV010,400000,Thuong,Hoan thanh thuc tap som

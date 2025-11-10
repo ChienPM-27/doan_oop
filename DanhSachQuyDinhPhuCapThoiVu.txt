@@ -1,0 +1,30 @@
+PC001,Nhan vien chinh thuc,500000.0,VND
+PC002,Nhan vien thuc tap,300000.0,VND
+PC003,Nhan vien part-time,200000.0,VND
+PC004,Nhan vien hop dong ngan han,350000.0,VND
+PC005,Nhan vien lam du an,450000.0,VND
+PC006,Nhan vien ban hang,250000.0,VND
+PC007,Nhan vien marketing,300000.0,VND
+PC008,Nhan vien IT,600000.0,VND
+PC009,Nhan vien ke toan,400000.0,VND
+PC010,Nhan vien nhan su,380000.0,VND
+PC011,Nhan vien ky thuat,550000.0,VND
+PC012,Nhan vien van phong,200000.0,VND
+PC013,Nhan vien ve sinh,150000.0,VND
+PC014,Nhan vien giao hang,180000.0,VND
+PC015,Nhan vien bao ve,220000.0,VND
+PC016,Thuc tap sinh ke toan,250000.0,VND
+PC017,Thuc tap sinh marketing,200000.0,VND
+PC018,Thuc tap sinh nhan su,200000.0,VND
+PC019,Thuc tap sinh IT,300000.0,VND
+PC020,Nhan vien cong nhat,100000.0,VND
+PC021,Tho san xuat theo gio,50000.0,gio
+PC022,Nhan vien theo du an ngan han,400000.0,VND
+PC023,Thoi vu ban hang dip Tet,700000.0,VND
+PC024,Thoi vu giao hang dip le,600000.0,VND
+PC025,Thoi vu marketing su kien,800000.0,VND
+PC026,Nhan vien san xuat tang ca,450000.0,VND
+PC027,Nhan vien thoi vu khuyen mai,550000.0,VND
+PC028,Nhan vien dao tao tam thoi,350000.0,VND
+PC029,Thuc tap sinh dai hoc,250000.0,VND
+PC030,Nhan vien thoi vu van phong,300000.0,VND

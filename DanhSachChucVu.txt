@@ -1,10 +1,19 @@
-CV01,Truong phong,5000000
-CV02,Ke toan vien,3000000
-CV03,Ky su,4000000
-CV04,Giam doc,8000000
-CV05,Thuc tap sinh,500000
-CV06,Chuyen vien,3500000
-CV07,Thu ky,2500000
-CV08,Nhan vien ban hang,2800000
-CV09,Nhan vien bao ve,1800000
-CV10,Quan ly du an,6000000
+CV02,Ke toan vien,3000000.0
+CV03,Ky su,4000000.0
+CV04,Giam doc,8000000.0
+CV05,Thuc tap sinh,500000.0
+CV06,Chuyen vien,3500000.0
+CV07,Thu ky,2500000.0
+CV08,Nhan vien ban hang,2800000.0
+CV09,Nhan vien bao ve,1800000.0
+CV10,Quan ly du an,6000000.0
+CV01,Truong phong,5000000.0
+CV02,Ke toan vien,3000000.0
+CV03,Ky su,4000000.0
+CV04,Giam doc,8000000.0
+CV05,Thuc tap sinh,500000.0
+CV06,Chuyen vien,3500000.0
+CV07,Thu ky,2500000.0
+CV08,Nhan vien ban hang,2800000.0
+CV09,Nhan vien bao ve,1800000.0
+CV10,Quan ly du an,6000000.0

@@ -219,7 +219,7 @@ public class DanhSachThuongPhat {
 
     // Đọc file DSThuongPhat.txt
     public void docFile() {
-        String fileName = "DSThuongPhat.txt";
+        String fileName = "DanhSachThuongPhat.txt";
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -278,7 +278,7 @@ public class DanhSachThuongPhat {
     // ===== GHI FILE =====
     // Ghi file DSThuongPhat.txt theo định dạng: maTP,maNV,soTien,loai,lyDo,ngay
     public void ghiFile() {
-        String fileName = "DSThuongPhat.txt";
+        String fileName = "DanhSachThuongPhat.txt";
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
             for (int i = 0; i < soLuong; i++) {
                 ThuongPhat t = dsThuongPhat[i];

@@ -20,7 +20,7 @@ public class DanhSachBangLuong {
     //  ĐỌC FILE
     // ============================================================
     public void docFile() {
-        try (BufferedReader br = new BufferedReader(new FileReader("DSBangLuong.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("DanhSachBangLuong.txt"))) {
             String line;
             soLuong = 0;
 
@@ -59,10 +59,10 @@ public class DanhSachBangLuong {
                 }
             }
 
-            System.out.println("✅ Đọc file DSBangLuong.txt thành công (" + soLuong + " bảng lương).");
+            System.out.println("✅ Đọc file DanhSachBangLuong.txt thành công (" + soLuong + " bảng lương).");
 
         } catch (IOException e) {
-            System.out.println("⚠️ Không tìm thấy file DSBangLuong.txt hoặc file rỗng.");
+            System.out.println("⚠️ Không tìm thấy file DanhSachBangLuong.txt hoặc file rỗng.");
         }
     }
 
@@ -70,7 +70,7 @@ public class DanhSachBangLuong {
     //  GHI FILE
     // ============================================================
     public void ghiFile() {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("DSBangLuong.txt"))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("DanhSachBangLuong.txt"))) {
             for (int i = 0; i < soLuong; i++) {
                 BangLuong bl = dsBangLuong[i];
                 if (bl == null) continue;
@@ -90,7 +90,7 @@ public class DanhSachBangLuong {
                 bw.newLine();
             }
 
-            System.out.println("✅ Ghi file DSBangLuong.txt thành công (" + soLuong + " bảng lương).");
+            System.out.println("✅ Ghi file DanhSachBangLuong.txt thành công (" + soLuong + " bảng lương).");
 
         } catch (IOException e) {
             System.out.println("❌ Lỗi ghi file: " + e.getMessage());

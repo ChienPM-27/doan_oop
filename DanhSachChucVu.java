@@ -116,6 +116,42 @@ public class DanhSachChucVu {
         }
         System.out.println("\nTong phu cap tat ca chuc vu: " + tong);
     }
+    public void ThongKePhuCapCaoThap() {
+    if (count == 0) {
+        System.out.println("❌ Danh sách rỗng, không thể thống kê!");
+        return;
+    }
+
+    ChucVu max = ds[0];
+    ChucVu min = ds[0];
+    double tong = 0;
+
+    for (int i = 0; i < count; i++) {
+        if (ds[i].getPhucap() > max.getPhucap()) {
+            max = ds[i];
+        }
+        if (ds[i].getPhucap() < min.getPhucap()) {
+            min = ds[i];
+        }
+        tong += ds[i].getPhucap();
+    }
+
+    double tb = tong / count;
+
+    System.out.println("\n╔══════════════════════════════════════════════════════╗");
+    System.out.println("║             THỐNG KÊ PHỤ CẤP CHỨC VỤ                 ║");
+    System.out.println("╠══════════════════════════════════════════════════════╣");
+    System.out.printf("║ Tổng số chức vụ     : %-25d ║%n", count);
+    System.out.printf("║ Tổng phụ cấp        : %-25.2f ║%n", tong);
+    System.out.printf("║ Phụ cấp trung bình  : %-25.2f ║%n", tb);
+    System.out.println("╠══════════════════════════════════════════════════════╣");
+    System.out.printf("║ Phụ cấp cao nhất    : %-25.2f ║%n", max.getPhucap());
+    System.out.printf("║  → Mã chức vụ: %-10s | Tên: %-12s ║%n", max.getMacv(), max.getTencv());
+    System.out.println("╠──────────────────────────────────────────────────────╣");
+    System.out.printf("║ Phụ cấp thấp nhất   : %-25.2f ║%n", min.getPhucap());
+    System.out.printf("║  → Mã chức vụ: %-10s | Tên: %-12s ║%n", min.getMacv(), min.getTencv());
+    System.out.println("╚══════════════════════════════════════════════════════╝");
+}
     //GET DS CHUC VU
     public ChucVu[] getDs(){
         return ds;
@@ -179,6 +215,7 @@ public class DanhSachChucVu {
             System.out.println("║  6. Hiển thị danh sách chức vụ                   ║");
             System.out.println("║  7. Thống kê tổng phụ cấp                        ║");
             System.out.println("║  8. Ghi danh sách chức vụ ra file                ║");
+            System.out.println("║  9. Thống kê phụ cấp cao nhất & thấp nhất        ║");
             System.out.println("║  0. Thoát chương trình                           ║");
             System.out.println("╚══════════════════════════════════════════════════╝");
             System.out.print("👉 Chọn chức năng: ");
@@ -215,6 +252,9 @@ public class DanhSachChucVu {
                 case 8:
                     GhiFile();
                     break;
+                case 9:
+                ThongKePhuCapCaoThap();
+                break;
                 case 0:
                     System.out.println("\n👋 Cảm ơn bạn đã sử dụng chương trình quản lý chức vụ!");
                     break;
@@ -224,10 +264,6 @@ public class DanhSachChucVu {
 
         } while (chon != 0);
     }
-
-
-
-
 }
 
 

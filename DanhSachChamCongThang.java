@@ -179,7 +179,7 @@ public class DanhSachChamCongThang {
 
     // ===== DOC FILE =====
     public void docFile() {
-        String fileName = "DSChamCongThang.txt";
+        String fileName = "DanhSachChamCongThang.txt";
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line;
             int readCount = 0;
@@ -220,7 +220,7 @@ public class DanhSachChamCongThang {
     }
     // ===== GHI FILE =====
     public void ghiFile() {
-        String fileName = "DSChamCongThang.txt";
+        String fileName = "DanhSachChamCongThang.txt";
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
             int writeCount = 0;
             for (int i = 0; i < soluong; i++) {

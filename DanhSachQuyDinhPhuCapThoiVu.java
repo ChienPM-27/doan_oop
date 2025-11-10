@@ -211,7 +211,7 @@ public class DanhSachQuyDinhPhuCapThoiVu {
 
     // ======= ĐỌC FILE =======
     public void docFile() {
-        File f = new File("QuyDinhPhuCapThoiVu.txt");
+        File f = new File("DanhSachQuyDinhPhuCapThoiVu.txt");
         if (!f.exists()) {
             // không in báo nếu file không tồn tại (lần chạy đầu tiên)
             return;
@@ -240,7 +240,7 @@ public class DanhSachQuyDinhPhuCapThoiVu {
                 QuyDinhPhuCapThoiVu q = new QuyDinhPhuCapThoiVu(ma, loai, muc, dv);
                 ds[count++] = q;
             }
-            System.out.println("✅ Đã đọc file QuyDinhPhuCapThoiVu.txt (" + count + " dòng).");
+            System.out.println("✅ Đã đọc file DanhSachQuyDinhPhuCapThoiVu.txt (" + count + " dòng).");
         } catch (IOException e) {
             System.out.println("Lỗi đọc file: " + e.getMessage());
         }
@@ -248,7 +248,7 @@ public class DanhSachQuyDinhPhuCapThoiVu {
 
     // ======= GHI FILE =======
     public void ghiFile() {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("QuyDinhPhuCapThoiVu.txt"))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("DanhSachQuyDinhPhuCapThoiVu.txt"))) {
             for (int i = 0; i < count; i++) {
                 QuyDinhPhuCapThoiVu q = ds[i];
                 if (q == null) continue;

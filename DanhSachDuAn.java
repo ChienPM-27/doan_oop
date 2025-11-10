@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 import java.io.IOException;
 import java.io.BufferedReader;
@@ -48,11 +47,9 @@ public class DanhSachDuAn{
         System.out.print("Ten du an: ");
         da.setTenDA(sc.nextLine());
         System.out.print("Ngay bat dau: ");
-        da.setNgayBD(sc.nextInt());
-        sc.nextLine();
+        da.setNgayBD(sc.nextLine());
         System.out.print("Ngay ket thuc: ");
-        da.setNgayKT(sc.nextInt());
-        sc.nextLine();
+        da.setNgayKT(sc.nextLine());
         System.out.print("Kinh phi: ");
         da.setKinhphi(sc.nextDouble());
         System.out.print("Thuong du an: ");
@@ -95,12 +92,12 @@ public class DanhSachDuAn{
         for (int i = 0; i < count; i++) {
             if (duan[i].getMaDA().equalsIgnoreCase(ma)) {
                 System.out.println("\n--- Sua thong tin du an ---");
-                System.out.print("Ten du an moi: ");
+System.out.print("Ten du an moi: ");
                 duan[i].setTenDA(sc.nextLine());
                 System.out.print("Ngay bat dau moi: ");
-                duan[i].setNgayBD(sc.nextInt());
+                duan[i].setNgayBD(sc.nextLine());
                 System.out.print("Ngay ket thuc moi: ");
-                duan[i].setNgayKT(sc.nextInt());
+                duan[i].setNgayKT(sc.nextLine());
                 System.out.print("Kinh phi moi: ");
                 duan[i].setKinhphi(sc.nextDouble());
                 System.out.print("Thuong du an moi: ");
@@ -144,8 +141,8 @@ public class DanhSachDuAn{
 
                 String maDA = parts[0];
                 String tenDA = parts[1];
-                int ngayBD = Integer.parseInt(parts[2]);
-                int ngayKT = Integer.parseInt(parts[3]);
+                String ngayBD = parts[2];
+                String ngayKT = parts[3];
                 double kinhPhi = Double.parseDouble(parts[4]);
                 double thuongDA = Double.parseDouble(parts[5]);
 
@@ -168,7 +165,7 @@ public class DanhSachDuAn{
     public void ghiFile() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("DanhSachDuAn.txt"))) {
             for (int i = 0; i < count; i++) {
-                DuAn da = duan[i];
+DuAn da = duan[i];
                 bw.write(da.getMaDA() + "," + da.getTenDA() + "," + da.getNgayBD() + "," +
                         da.getNgayKT() + "," + da.getKinhphi() + "," + da.getThuongDA());
                 bw.newLine();
@@ -222,7 +219,7 @@ public class DanhSachDuAn{
                     System.out.print("Nhập mã dự án cần sửa: ");
                     String maSua = sc.nextLine();
                     suaThongTin(maSua);
-                    break;
+break;
                 }
                 case 5: {
                     System.out.print("Nhập mã dự án cần tìm: ");

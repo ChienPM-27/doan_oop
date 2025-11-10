@@ -126,7 +126,7 @@ public class DanhSachPhanCong {
 
     // ======= ĐỌC FILE (kiểu giống bạn gửi) =======
     public void docFile() {
-        try (BufferedReader br = new BufferedReader(new FileReader("PhanCong.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("DanhSachPhanCong.txt"))) {
             String line;
             count = 0;
 
@@ -165,14 +165,14 @@ public class DanhSachPhanCong {
 
     // ======= GHI FILE =======
     public void ghiFile() {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("PhanCong.txt"))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("DanhSachPhanCong.txt"))) {
             for (int i = 0; i < count; i++) {
                 PhanCong pc = ds[i];
                 String line = pc.getMaNV() + "," + pc.getMaDA() + "," + pc.getVaitro() + "," + pc.getTienthuongDA();
                 bw.write(line);
                 bw.newLine();
             }
-            System.out.println("✅ Ghi file PhanCong.txt thành công (" + count + " dòng).");
+            System.out.println("✅ Ghi file DanhSachPhanCong.txt thành công (" + count + " dòng).");
         } catch (IOException e) {
             System.out.println("Lỗi ghi file: " + e.getMessage());
         }

@@ -1,49 +1,68 @@
-
-
 import java.util.Scanner;
 
 public class DuAn {
     private String maDA;
     private String tenDA;
-    private int ngayBD;
-    private int ngayKT;
+    private String ngayBD;
+    private String ngayKT;
     private double kinhphi;
     private double thuongDA;
-    //constructor
-    public DuAn(){
 
+    // constructor không tham số
+    public DuAn() {
     }
-    //constructor có tham số
-    public DuAn(String maDA, String tenDA, int ngayBD, int ngayKT, double kinhPhi, double thuongDA){
+
+    // constructor có tham số (sửa lỗi gán kinhPhi)
+    public DuAn(String maDA, String tenDA, String ngayBD, String ngayKT, double kinhPhi, double thuongDA) {
         this.maDA = maDA;
         this.tenDA = tenDA;
         this.ngayBD = ngayBD;
         this.ngayKT = ngayKT;
-        this.kinhphi = kinhphi;
+        this.kinhphi = kinhPhi;
         this.thuongDA = thuongDA;
     }
-    // Hàm nhập thông tin dự án
 
+    // Hàm nhập thông tin dự án (đã sửa Scanner)
     public void nhap() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Nhap ma du an: ");
-        maDA = sc.nextLine();
+        maDA = sc.nextLine().trim();
+
         System.out.print("Nhap ten du an: ");
-        tenDA = sc.nextLine();
+        tenDA = sc.nextLine().trim();
+
         System.out.print("Nhap ngay bat dau: ");
-        ngayBD = sc.nextInt();
-        sc.nextLine();
+        ngayBD = sc.nextLine().trim();
+
         System.out.print("Nhap ngay ket thuc: ");
-        ngayKT = sc.nextInt();
-        sc.nextLine();
-        System.out.print("Nhap kinh phi: ");
-        kinhphi = sc.nextDouble();
-        System.out.print("Nhap thuong du an: ");
-        thuongDA = sc.nextDouble();
-        sc.nextLine(); // tránh trôi dòng
+        ngayKT = sc.nextLine().trim();
+
+        // đọc kinhphi an toàn
+        while (true) {
+            System.out.print("Nhap kinh phi: ");
+            String line = sc.nextLine().trim();
+            try {
+                kinhphi = Double.parseDouble(line);
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Gia tri khong hop le. Vui long nhap so thuc.");
+            }
+        }
+
+        // đọc thuongDA an toàn
+        while (true) {
+            System.out.print("Nhap thuong du an: ");
+            String line = sc.nextLine().trim();
+            try {
+                thuongDA = Double.parseDouble(line);
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Gia tri khong hop le. Vui long nhap so thuc.");
+            }
+        }
     }
 
-    // ham set de lay thong tin
+    // Setters
     public void setMaDA(String maDA) {
         this.maDA = maDA;
     }
@@ -52,11 +71,11 @@ public class DuAn {
         this.tenDA = tenDA;
     }
 
-    public void setNgayBD(int ngayBD) {
+    public void setNgayBD(String ngayBD) {
         this.ngayBD = ngayBD;
     }
 
-    public void setNgayKT(int ngayKT) {
+    public void setNgayKT(String ngayKT) {
         this.ngayKT = ngayKT;
     }
 
@@ -68,7 +87,7 @@ public class DuAn {
         this.thuongDA = thuongDA;
     }
 
-    //ham get
+    // Getters
     public String getMaDA() {
         return maDA;
     }
@@ -77,11 +96,11 @@ public class DuAn {
         return tenDA;
     }
 
-    public int getNgayBD() {
+    public String getNgayBD() {
         return ngayBD;
     }
 
-    public int getNgayKT() {
+    public String getNgayKT() {
         return ngayKT;
     }
 
@@ -93,12 +112,18 @@ public class DuAn {
         return thuongDA;
     }
 
+    // Hiển thị
     public void xuat() {
         System.out.println("Ma du an: " + maDA);
         System.out.println("Ten du an: " + tenDA);
-        System.out.println("Ngay bat dau: " + ngayBD);
+System.out.println("Ngay bat dau: " + ngayBD);
         System.out.println("Ngay ket thuc: " + ngayKT);
-        System.out.println("kinh phi: " + kinhphi);
-        System.out.println("Thuong du an: " + thuongDA);
+        System.out.println("Kinh phi: " + String.format("%,.0f", kinhphi));
+        System.out.println("Thuong du an: " + String.format("%,.0f", thuongDA));
+    }
+
+    @Override
+    public String toString() {
+        return maDA + "," + tenDA + "," + ngayBD + "," + ngayKT + "," + kinhphi + "," + thuongDA;
     }
 }

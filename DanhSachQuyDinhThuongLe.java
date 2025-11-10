@@ -18,7 +18,7 @@ public class DanhSachQuyDinhThuongLe {
 
     // ===== ĐỌC FILE =====
     public void docFile() {
-        try (BufferedReader br = new BufferedReader(new FileReader("DSQuyDinhThuongLe.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("DanhSachQuyDinhThuongLe.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 line = line.trim();
@@ -38,7 +38,7 @@ public class DanhSachQuyDinhThuongLe {
                 ds[count++] = new QuyDinhThuongLe(mathuong, tenle, ngayle, mucthuong);
             }
 
-            System.out.println("✅ Đọc file DSQuyDinhThuongLe.txt thành công (" + count + " quy định).");
+            System.out.println("✅ Đọc file DanhSachQuyDinhThuongLe.txt thành công (" + count + " quy định).");
 
         } catch (IOException e) {
             System.out.println("❌ Lỗi đọc file: " + e.getMessage());
@@ -49,7 +49,7 @@ public class DanhSachQuyDinhThuongLe {
 
     // ===== GHI FILE =====
     public void ghiFile() {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("DSQuyDinhThuongLe.txt"))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("DanhSachQuyDinhThuongLe.txt"))) {
             for (int i = 0; i < count; i++) {
                 QuyDinhThuongLe qd = ds[i];
                 String line = qd.getMathuong() + "," + 
@@ -59,7 +59,7 @@ public class DanhSachQuyDinhThuongLe {
                 bw.write(line);
                 bw.newLine();
             }
-            System.out.println("✅ Ghi file DSQuyDinhThuongLe.txt thành công (" + count + " quy định).");
+            System.out.println("✅ Ghi file DanhSachQuyDinhThuongLe.txt thành công (" + count + " quy định).");
         } catch (IOException e) {
             System.out.println("❌ Lỗi ghi file: " + e.getMessage());
         }

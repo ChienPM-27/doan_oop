@@ -370,7 +370,7 @@ public class DanhSachPhong {
 
 // ===== ĐỌC FILE =====
     public void docFile() {
-        try (BufferedReader br = new BufferedReader(new FileReader("DSPhongBan.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("DanhSachPhongBan.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 line = line.trim();
@@ -391,7 +391,7 @@ public class DanhSachPhong {
                 dsPhongBan[soluong++] = new PhongBan(mapb, maql, tenpb, ngaythanhlap, maduan);
             }
 
-            System.out.println("✅ Đọc file DSPhongBan.txt thành công (" + soluong + " phòng ban).");
+            System.out.println("✅ Đọc file DanhSachPhongBan.txt thành công (" + soluong + " phòng ban).");
 
         } catch (IOException e) {
             System.out.println("❌ Lỗi đọc file: " + e.getMessage());
@@ -400,7 +400,7 @@ public class DanhSachPhong {
 
     // ===== GHI FILE =====
     public void ghiFile() {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("DSPhongBan.txt"))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("DanhSachPhongBan.txt"))) {
             for (int i = 0; i < soluong; i++) {
                 PhongBan pb = dsPhongBan[i];
                 String line = pb.getMapb() + "," + 
@@ -411,7 +411,7 @@ public class DanhSachPhong {
                 bw.write(line);
                 bw.newLine();
             }
-            System.out.println("✅ Ghi file DSPhongBan.txt thành công (" + soluong + " phòng ban).");
+            System.out.println("✅ Ghi file DanhSachPhongBan.txt thành công (" + soluong + " phòng ban).");
         } catch (IOException e) {
             System.out.println("❌ Lỗi ghi file: " + e.getMessage());
         }

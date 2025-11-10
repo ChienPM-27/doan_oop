@@ -1,0 +1,50 @@
+CV01,Giam doc,5000000.0,Huong phu cap cao nhat
+CV02,Pho giam doc,4000000.0,Huong phu cap cap cao
+CV03,Truong phong,3000000.0,Phu cap chuc vu quan ly
+CV04,Pho phong,2500000.0,Ho tro dieu hanh phong
+CV05,Truong nhom,2000000.0,Quan ly nhom lam viec
+CV06,Chuyen vien cao cap,1500000.0,Chuyen mon nang cao
+CV07,Chuyen vien,1000000.0,Chuyen mon chinh
+CV08,Nhan vien chinh thuc,800000.0,Huong phu cap co ban
+CV09,Nhan vien moi,500000.0,Phu cap thu viec
+CV10,Nhan vien thuc tap,300000.0,Phu cap ho tro thuc tap
+CV11,Ke toan truong,2500000.0,Quan ly tai chinh ke toan
+CV12,Ke toan vien,1200000.0,Phu cap theo chuc danh
+CV13,Nhan vien hanh chinh,900000.0,Ho tro cong viec van phong
+CV14,Nhan vien marketing,1000000.0,Ho tro chien dich quang cao
+CV15,Nhan vien ky thuat,1300000.0,Phu cap ky thuat
+CV16,Nhan vien IT,1500000.0,Phu cap chuyen mon cong nghe
+CV17,Nhan vien bao ve,700000.0,Phu cap tang ca dem
+CV18,Nhan vien ve sinh,600000.0,Phu cap dieu kien kho khan
+CV19,Nhan vien giao hang,800000.0,Phu cap di lai
+CV20,Nhan vien ban hang,900000.0,Phu cap hoa hong co ban
+CV21,Nhan vien kho,950000.0,Phu cap nang ha hang hoa
+CV22,To truong san xuat,1800000.0,Quan ly to san xuat
+CV23,To pho san xuat,1600000.0,Ho tro quan ly
+CV24,Quan ly du an,2700000.0,Phu cap trach nhiem du an
+CV25,Truong phong nhan su,3000000.0,Quan ly toan bo nhan su
+CV26,Pho phong nhan su,2500000.0,Ho tro quan ly nhan su
+CV27,Truong phong IT,2800000.0,Phu cap quan ly phong cong nghe
+CV28,Pho phong IT,2400000.0,Ho tro ky thuat va he thong
+CV29,Truong phong ke toan,3000000.0,Quan ly tai chinh tong hop
+CV30,Pho phong ke toan,2600000.0,Ho tro quan ly ke toan
+CV31,Truong phong marketing,2900000.0,Quan ly chien luoc quang cao
+CV32,Pho phong marketing,2500000.0,Phu cap truyen thong noi bo
+CV33,Truong phong san xuat,3100000.0,Phu cap dieu hanh nha may
+CV34,Pho phong san xuat,2700000.0,Ho tro quan ly nha may
+CV35,To truong ky thuat,2000000.0,Phu cap quan ly to ky thuat
+CV36,To pho ky thuat,1800000.0,Ho tro trien khai thuc dia
+CV37,Chuyen vien dao tao,1500000.0,Phu cap huan luyen vien
+CV38,Nhan vien dao tao,1000000.0,Phu cap giang day noi bo
+CV39,Chuyen vien phap ly,1800000.0,Phu cap luat va ho so
+CV40,Nhan vien phap ly,1200000.0,Phu cap van ban hop dong
+CV41,Chuyen vien kinh doanh,1500000.0,Phu cap doanh thu cao
+CV42,Nhan vien kinh doanh,1200000.0,Phu cap hoa hong theo doanh so
+CV43,Quan ly chi nhanh,3500000.0,Phu cap quan ly dia phuong
+CV44,Pho quan ly chi nhanh,3000000.0,Ho tro van hanh chi nhanh
+CV45,Nhan vien thoi vu,500000.0,Phu cap theo gio lam viec
+CV46,Nhan vien part time,400000.0,Phu cap gio lam linh hoat
+CV47,Thuc tap sinh,300000.0,Phu cap ho tro sinh vien
+CV48,Tro ly giam doc,3200000.0,Phu cap cao do trach nhiem
+CV49,Thu ky,1500000.0,Phu cap cong viec hanh chinh
+CV50,Le tan,900000.0,Phu cap ca toi va cuoi tuan

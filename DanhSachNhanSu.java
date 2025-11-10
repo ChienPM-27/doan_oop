@@ -1,6 +1,11 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 
@@ -59,6 +64,54 @@ public class DanhSachNhanSu {
         dsNhanSu[soLuong++] = ns;
         System.out.println("✅ Thêm nhân sự thành công!");
     }
+    public void ghiFile() {
+    try (PrintWriter pw = new PrintWriter(
+            new BufferedWriter(
+                new OutputStreamWriter(
+                    new FileOutputStream("DanhSachNhanSu.txt"), StandardCharsets.UTF_8)))) {
+
+        for (int i = 0; i < soLuong; i++) {
+            NhanSu ns = dsNhanSu[i];
+            if (ns == null) continue;
+
+            StringBuilder sb = new StringBuilder();
+            // 0..10 chung
+            sb.append(ns.getLoaiNhanVien()).append(",")
+              .append(ns.getMa()).append(",")
+              .append(ns.getHo()).append(",")
+              .append(ns.getTen()).append(",")
+              .append(ns.getGt()).append(",")
+              .append(ns.getDiachi()).append(",")
+              .append(ns.getTrangthai()).append(",")
+              .append(ns.getMachucvu()).append(",")
+              .append(ns.getNgay()).append(",")
+              .append(ns.getThang()).append(",")
+              .append(ns.getNam());
+
+            if (ns.getLoaiNhanVien() == 1) {
+                // nhân viên chính thức: luongcoban, ngayvaolam, phongban
+                NhanVienChinhThuc nv = (NhanVienChinhThuc) ns;
+                sb.append(",").append(nv.getLuongcoban())
+                  .append(",").append(nv.getNgayvaolam())
+                  .append(",").append(nv.getPhongban());
+            } else {
+                // nhân viên thực tập: thoigiantt, truonghoc, nganhhoc
+                NhanVienThucTap tt = (NhanVienThucTap) ns;
+                sb.append(",").append(tt.getThoigianthuctap())
+                  .append(",").append(tt.getTruonghoc())
+                  .append(",").append(tt.getNganhhoc());
+            }
+
+            pw.println(sb.toString());
+        }
+
+        pw.flush();
+        System.out.println("✅ Ghi file DSRNhanSu.txt thành công (" + soLuong + " nhân sự).");
+
+    } catch (IOException e) {
+        System.out.println("❌ Lỗi ghi file: " + e.getMessage());
+    }
+}
     
     // ===== XÓA NHÂN SỰ =====
     public void xoaNhanSu() {
@@ -342,7 +395,7 @@ public class DanhSachNhanSu {
     }
     
     public void docFile() {
-        try (BufferedReader br = new BufferedReader(new FileReader("DSNhanSu.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("DanhSachNhanSu.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 line = line.trim();
@@ -395,7 +448,7 @@ public class DanhSachNhanSu {
                 dsNhanSu[soLuong++] = ns;
             }
 
-            System.out.println("✅ Đọc file DSNhanSu.txt thành công (" + soLuong + " nhân sự).");
+            System.out.println("✅ Đọc file DanhSachNhanSu.txt thành công (" + soLuong + " nhân sự).");
 
         } catch (IOException e) {
             System.out.println("❌ Lỗi đọc file: " + e.getMessage());
@@ -404,73 +457,91 @@ public class DanhSachNhanSu {
         }
     }    
     // ===== MENU CHÍNH =====
-    public void menu() {
+// ===== MENU CHÍNH (CẬP NHẬT) =====
+public void menu() {
+    while (true) {
+        System.out.println("\n╔══════════════════════════════════════════════╗");
+        System.out.println("║          HỆ THỐNG QUẢN LÝ NHÂN SỰ            ║");
+        System.out.println("╠══════════════════════════════════════════════╣");
+        System.out.println("║  1. Thêm nhân sự                             ║");
+        System.out.println("║  2. Xóa nhân sự theo mã                      ║");
+        System.out.println("║  3. Tìm kiếm theo mã                         ║");
+        System.out.println("║  4. Tìm kiếm theo loại (ID 1 hoặc 2)         ║");
+        System.out.println("║  5. Sửa thông tin nhân sự                    ║");
+        System.out.println("║  6. Hiển thị tất cả nhân sự                  ║");
+        System.out.println("║  7. Hiển thị NV chính thức                   ║");
+        System.out.println("║  8. Hiển thị NV thực tập                     ║");
+        System.out.println("║  9. Thống kê tổng quan                       ║");
+        System.out.println("║ 10. Thống kê theo phòng ban                  ║");
+        System.out.println("║ 11. Đọc dữ liệu từ file                      ║");
+        System.out.println("║ 12. Ghi dữ liệu ra file                      ║");
+        System.out.println("║  0. Thoát                                    ║");
+        System.out.println("╚══════════════════════════════════════════════╝");
+        System.out.print("👉 Chọn chức năng: ");
+
+        String line = sc.nextLine().trim();
         int chon;
-        do {
-            System.out.println("\n╔══════════════════════════════════════════════╗");
-            System.out.println("║          HỆ THỐNG QUẢN LÝ NHÂN SỰ              ║");
-            System.out.println("╠════════════════════════════════════════════════╣");
-            System.out.println("║  1. Thêm nhân sự                               ║");
-            System.out.println("║  2. Xóa nhân sự theo mã                        ║");
-            System.out.println("║  3. Tìm kiếm theo mã                           ║");
-            System.out.println("║  4. Tìm kiếm theo loại (ID 1 hoặc 2)           ║");
-            System.out.println("║  5. Sửa thông tin nhân sự                      ║");
-            System.out.println("║  6. Hiển thị tất cả nhân sự                    ║");
-            System.out.println("║  7. Hiển thị NV chính thức                     ║");
-            System.out.println("║  8. Hiển thị NV thực tập                       ║");
-            System.out.println("║  9. Thống kê tổng quan                         ║");
-            System.out.println("║ 10. Thống kê theo phòng ban                    ║");
-            System.out.println("║  0. Thoát                                      ║");
-            System.out.println("╚════════════════════════════════════════════════╝");
-            System.out.print("👉 Chọn chức năng: ");
-            
-            while (!sc.hasNextInt()) {
-                System.out.print("❌ Vui lòng nhập số: ");
-                sc.next();
-            }
-            chon = sc.nextInt();
-            sc.nextLine();
-            
-            switch (chon) {
-                case 1:
-                    themNhanSu();
-                    break;
-                case 2:
-                    xoaNhanSu();
-                    break;
-                case 3:
-                    timKiemTheoMa();
-                    break;
-                case 4:
-                    timKiemTheoLoai();
-                    break;
-                case 5:
-                    suaThongTin();
-                    break;
-                case 6:
-                    hienThiTatCa();
-                    break;
-                case 7:
-                    hienThiNVChinhThuc();
-                    break;
-                case 8:
-                    hienThiNVThucTap();
-                    break;
-                case 9:
-                    thongKe();
-                    break;
-                case 10:
-                    thongKeTheoPhongBan();
-                    break;
-                case 0:
-                    System.out.println("\n👋 Cảm ơn bạn đã sử dụng hệ thống!");
-                    break;
-                default:
-                    System.out.println("❌ Lựa chọn không hợp lệ!");
-            }
-            
-        } while (chon != 0);
+        try {
+            chon = Integer.parseInt(line);
+        } catch (NumberFormatException e) {
+            System.out.println("❌ Vui lòng nhập một số hợp lệ (0-12).");
+            continue;
+        }
+
+        switch (chon) {
+            case 1:
+                themNhanSu();
+                // tự động lưu sau khi thay đổi dữ liệu
+                ghiFile();
+                break;
+            case 2:
+                xoaNhanSu();
+                ghiFile();
+                break;
+            case 3:
+                timKiemTheoMa();
+                break;
+            case 4:
+                timKiemTheoLoai();
+                break;
+            case 5:
+                suaThongTin();
+                ghiFile();
+                break;
+            case 6:
+                hienThiTatCa();
+                break;
+            case 7:
+                hienThiNVChinhThuc();
+                break;
+            case 8:
+                hienThiNVThucTap();
+                break;
+            case 9:
+                thongKe();
+                break;
+            case 10:
+                thongKeTheoPhongBan();
+                break;
+            case 11:
+                // đọc file (thêm dữ liệu vào danh sách hiện tại)
+                docFile();
+                break;
+            case 12:
+                // ghi file thủ công
+                ghiFile();
+                break;
+            case 0:
+                // lưu trước khi thoát
+                ghiFile();
+                System.out.println("\n👋 Cảm ơn bạn đã sử dụng hệ thống!");
+                return;
+            default:
+                System.out.println("❌ Lựa chọn không hợp lệ!");
+        }
     }
+}
+
     
     public NhanSu[] getDsNhanSu() {
     return dsNhanSu;

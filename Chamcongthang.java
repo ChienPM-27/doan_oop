@@ -1,4 +1,3 @@
-import java.io.Serializable;
 
 public class Chamcongthang{
     private String macongthang;
@@ -68,7 +67,7 @@ public class Chamcongthang{
     public void xuat() {
         System.out.println("==============================");
         System.out.println("Mã công tháng: " + macongthang);
-        System.out.println("Mã nhân sự: " + manv +  "N/A");
+        System.out.println("Mã nhân sự: " + (manv != null ? manv : "N/A"));
         System.out.println("Tháng/Năm: " + thang + "/" + nam);
         System.out.println("Số ngày công: " + songaycong);
         System.out.println("Số ngày nghỉ: " + tinhSoNgayNghi());
@@ -77,9 +76,10 @@ public class Chamcongthang{
 
     @Override
     public String toString() {
+        // Sửa lỗi: sử dụng %s cho manv thay vì %d
         return String.format("%-15s | %-10s | %02d/%04d | %3d ngày | %3d nghỉ",
                 macongthang,
-                manv, "N/A",
+                manv != null ? manv : "N/A",
                 thang, nam,
                 songaycong,
                 tinhSoNgayNghi());

@@ -17,6 +17,13 @@ public class PhanCong {
         this.vaitro = vaitro;
         this.tienthuongDA = tienthuongDA;
     }
+     public PhanCong(PhanCong other) {
+        if (other == null) return;
+        this.maNV = other.maNV;
+        this.maDA = other.maDA;
+        this.vaitro = other.vaitro;
+        this.tienthuongDA = other.tienthuongDA;
+    }
 
     // ham set de lay thong tin
     public void setMaNV(String maNV) {this.maNV=maNV;}

@@ -21,6 +21,16 @@ public class DuAn {
         this.kinhphi = kinhPhi;
         this.thuongDA = thuongDA;
     }
+    public DuAn(DuAn other) {
+        if (other == null) return;
+        this.maDA = other.maDA;
+        this.tenDA = other.tenDA;
+        this.ngayBD = other.ngayBD;
+        this.ngayKT = other.ngayKT;
+        this.kinhphi = other.kinhphi;
+        this.thuongDA = other.thuongDA;
+    }
+
 
     // Hàm nhập thông tin dự án (đã sửa Scanner)
     public void nhap() {

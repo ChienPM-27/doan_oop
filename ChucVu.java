@@ -14,6 +14,11 @@ public class ChucVu {
         this.tencv = tencv;
         this.phucap = phucap;
     }
+    public ChucVu (ChucVu cv){
+        this.macv = cv.macv;
+        this.tencv = cv.tencv;
+        this.phucap = cv.phucap;
+    }
 
     public void Nhap() {
         System.out.print("Moi Nhap Ma Chuc Vu :");

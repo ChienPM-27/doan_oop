@@ -21,7 +21,19 @@ public class NhanVienThucTap extends NhanSu {
         this.nganhhoc = nganhhoc;
     }
 
-    // Getter và Setter
+    // Constructor sao chép
+    public NhanVienThucTap(NhanVienThucTap nv) {
+        super(nv); // gọi copy constructor của lớp cha
+        this.thoigianthuctap = nv.thoigianthuctap;
+        this.truonghoc = nv.truonghoc;
+        this.nganhhoc = nv.nganhhoc;
+    }
+
+    // Trả về bản sao
+    public NhanVienThucTap copy() {
+        return new NhanVienThucTap(this);
+    }
+
     public String getThoigianthuctap() { return thoigianthuctap; }
     public void setThoigianthuctap(String thoigianthuctap) {
         this.thoigianthuctap = thoigianthuctap;
@@ -40,36 +52,10 @@ public class NhanVienThucTap extends NhanSu {
 
     @Override
     public void nhap() {
+        // Tái sử dụng phần nhập chung của lớp cha
+        super.nhap();
+
         Scanner sc = new Scanner(System.in);
-
-        System.out.print("Nhập mã nhân viên: ");
-        setMa(sc.nextLine().trim());
-
-        System.out.print("Nhập họ: ");
-        setHo(sc.nextLine().trim());
-
-        System.out.print("Nhập tên: ");
-        setTen(sc.nextLine().trim());
-
-        System.out.print("Nhập giới tính: ");
-        setGt(sc.nextLine().trim());
-
-        System.out.print("Nhập địa chỉ: ");
-        setDiachi(sc.nextLine().trim());
-
-        System.out.print("Nhập ngày sinh (dd): ");
-        ngay = sc.nextInt();
-        System.out.print("Nhập tháng sinh (mm): ");
-        thang = sc.nextInt();
-        System.out.print("Nhập năm sinh (yyyy): ");
-        nam = sc.nextInt();
-        sc.nextLine();
-
-        System.out.print("Nhập trạng thái làm việc: ");
-        setTrangthai(sc.nextLine().trim());
-
-        System.out.print("Nhập mã chức vụ: ");
-        setMachucvu(sc.nextLine().trim());
 
         System.out.print("Nhập thời gian thực tập (vd: 3 tháng): ");
         thoigianthuctap = sc.nextLine().trim();
@@ -85,27 +71,26 @@ public class NhanVienThucTap extends NhanSu {
 
     @Override
     public void xuat() {
+        // Tái sử dụng phần xuất chung của lớp cha
         System.out.println("╔════════════════════════════════════════════════╗");
         System.out.println("║         THÔNG TIN NHÂN VIÊN THỰC TẬP         ║");
         System.out.println("╠════════════════════════════════════════════════╣");
-        System.out.printf("║ Mã NV        : %-30s ║%n", ma);
-        System.out.printf("║ Họ và tên    : %-30s ║%n", ho + " " + ten);
-        System.out.printf("║ Giới tính    : %-30s ║%n", gt);
-        System.out.printf("║ Ngày sinh    : %02d/%02d/%-23d ║%n", ngay, thang, nam);
-        System.out.printf("║ Tuổi         : %-30d ║%n", tinhTuoi());
-        System.out.printf("║ Địa chỉ      : %-30s ║%n", diachi);
-        System.out.printf("║ Trạng thái   : %-30s ║%n", trangthai);
-        System.out.printf("║ Mã chức vụ   : %-30s ║%n", macv);
-        System.out.printf("║ Thời gian TT : %-30s ║%n", thoigianthuctap);
-        System.out.printf("║ Trường học   : %-30s ║%n", truonghoc);
-        System.out.printf("║ Ngành học    : %-30s ║%n", nganhhoc);
-        System.out.printf("║ Loại NV      : %-30s ║%n", getLoaiNV());
+        // Xuất phần chung (gọn, 1 hàng) bằng super.xuat()
+        super.xuat();
+        // Xuất phần riêng
+        System.out.printf("Thời gian TT : %s%n", thoigianthuctap);
+        System.out.printf("Trường học   : %s%n", truonghoc);
+        System.out.printf("Ngành học    : %s%n", nganhhoc);
+        System.out.printf("Loại NV      : %s%n", getLoaiNV());
         System.out.println("╚════════════════════════════════════════════════╝");
     }
 
     @Override
     public String toString() {
-        return String.format("%-10s | %-20s | %-10s | %02d/%02d/%d | %-15s | %-20s | %-15s | %-15s",
-                ma, ho + " " + ten, gt, ngay, thang, nam, thoigianthuctap, truonghoc, nganhhoc, getLoaiNV());
+        // Format: ma | Ho Ten | GT | dd/mm/yyyy | TrangThai | ThoiGianTT | Truong | Nganh | LoaiNV
+        String hoten = (ho == null ? "" : ho) + (ten == null ? "" : " " + ten);
+        String ngaysinh = String.format("%02d/%02d/%d", ngay, thang, nam);
+        return String.format("%-10s | %-20s | %-6s | %-12s | %-12s | %-12s | %-15s | %-15s | %-10s",
+                ma, hoten.trim(), gt, ngaysinh, trangthai, thoigianthuctap, truonghoc, nganhhoc, getLoaiNV());
     }
 }

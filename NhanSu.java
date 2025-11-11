@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Scanner;
 
 public abstract class NhanSu {
     protected String ho;
@@ -31,6 +32,20 @@ public abstract class NhanSu {
         this.nam = nam;
         this.loaiNhanVien = loaiNhanVien;
     }
+    public NhanSu(NhanSu ns) {
+        this.ma = ns.ma;
+        this.ho = ns.ho;
+        this.ten = ns.ten;
+        this.gt = ns.gt;
+        this.diachi = ns.diachi;
+        this.trangthai = ns.trangthai;
+        this.macv = ns.macv;
+        this.ngay = ns.ngay;
+        this.thang = ns.thang;
+        this.nam = ns.nam;
+        this.loaiNhanVien = ns.loaiNhanVien;
+    }
+    
 
     // Các phương thức setter
     public void setHo(String ho) { this.ho = ho; }
@@ -68,9 +83,46 @@ public abstract class NhanSu {
         Period period = Period.between(ngaysinh, ngayhientai);
         return period.getYears();
     }
+    //HÀM NHẬP XUẤT
+    public void nhap() {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Nhập mã nhân sự: ");
+        ma = sc.nextLine().trim();
+
+        System.out.print("Nhập họ: ");
+        ho = sc.nextLine().trim();
+
+        System.out.print("Nhập tên: ");
+        ten = sc.nextLine().trim();
+
+        System.out.print("Nhập giới tính: ");
+        gt = sc.nextLine().trim();
+
+        System.out.print("Nhập địa chỉ: ");
+        diachi = sc.nextLine().trim();
+
+        System.out.print("Nhập ngày sinh (dd): ");
+        ngay = sc.nextInt();
+        System.out.print("Nhập tháng sinh (mm): ");
+        thang = sc.nextInt();
+        System.out.print("Nhập năm sinh (yyyy): ");
+        nam = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Nhập trạng thái làm việc: ");
+        trangthai = sc.nextLine().trim();
+
+        System.out.print("Nhập mã chức vụ: ");
+        macv = sc.nextLine().trim();
+    }
+
+    // ===== Xuất thông tin cơ bản =====
+    public void xuat() {
+        System.out.printf("Mã NV: %s | Họ tên: %s %s | Giới tính: %s | Ngày sinh: %02d/%02d/%d | Tuổi: %d | Trạng thái: %s | Mã CV: %s%n",
+                ma, ho, ten, gt, ngay, thang, nam, tinhTuoi(), trangthai, macv);
+    }
 
     // Phương thức trừu tượng
-    public abstract void nhap();
-    public abstract void xuat();
     public abstract String getLoaiNV();
 }

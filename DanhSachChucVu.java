@@ -30,6 +30,8 @@ public class DanhSachChucVu {
         }
     }
 
+
+
     // ===== Xuất danh sách =====
     public void Xuat() {
         if (count == 0) {
@@ -75,6 +77,7 @@ public class DanhSachChucVu {
         System.out.println("Khong tim thay ma chuc vu can xoa!");
     }
 
+
     // ===== Sửa thông tin chức vụ =====
     public void Sua() {
         Scanner sc = new Scanner(System.in);
@@ -91,6 +94,57 @@ public class DanhSachChucVu {
         }
         System.out.println("Khong tim thay ma chuc vu can sua!");
     }
+    //THEM SUA XOA CO THAM SO
+        // ===== Thêm chức vụ có tham số =====
+    public boolean Them(ChucVu cv) {
+        if (count >= MAX) {
+            System.out.println("❌ Danh sách đã đầy, không thể thêm!");
+            return false;
+        }
+
+        // Kiểm tra trùng mã
+        for (int i = 0; i < count; i++) {
+            if (ds[i].getMacv().equalsIgnoreCase(cv.getMacv())) {
+                System.out.println("⚠️ Mã chức vụ đã tồn tại: " + cv.getMacv());
+                return false;
+            }
+        }
+
+        ds[count++] = cv;
+        System.out.println("✅ Đã thêm chức vụ: " + cv.getTencv());
+        return true;
+    }
+
+    // ===== Sửa chức vụ có tham số =====
+    public boolean Sua(String ma, ChucVu thongTinMoi) {
+        for (int i = 0; i < count; i++) {
+            if (ds[i].getMacv().equalsIgnoreCase(ma)) {
+                ds[i].setTencv(thongTinMoi.getTencv());
+                ds[i].setPhucap(thongTinMoi.getPhucap());
+                System.out.println("✅ Đã cập nhật chức vụ có mã: " + ma);
+                return true;
+            }
+        }
+        System.out.println("❌ Không tìm thấy mã chức vụ: " + ma);
+        return false;
+    }
+
+    // ===== Xóa chức vụ có tham số =====
+    public boolean Xoa(String ma) {
+        for (int i = 0; i < count; i++) {
+            if (ds[i].getMacv().equalsIgnoreCase(ma)) {
+                for (int j = i; j < count - 1; j++) {
+                    ds[j] = ds[j + 1];
+                }
+                count--;
+                System.out.println("🗑️ Đã xóa chức vụ có mã: " + ma);
+                return true;
+            }
+        }
+        System.out.println("❌ Không tìm thấy mã chức vụ để xóa!");
+        return false;
+    }
+
 
     // ===== Tìm kiếm chức vụ =====
     public void TimKiem() {
@@ -116,6 +170,7 @@ public class DanhSachChucVu {
         }
         System.out.println("\nTong phu cap tat ca chuc vu: " + tong);
     }
+
     public void ThongKePhuCapCaoThap() {
     if (count == 0) {
         System.out.println("❌ Danh sách rỗng, không thể thống kê!");
@@ -200,70 +255,159 @@ public class DanhSachChucVu {
             System.out.println("❌ Lỗi ghi file: " + e.getMessage());
         }
     }
-    public void Menu() throws IOException {
-        Scanner sc = new Scanner(System.in);
-        int chon;
-        do {
-            System.out.println("\n╔══════════════════════════════════════════════════╗");
-            System.out.println("║          QUẢN LÝ DANH SÁCH CHỨC VỤ               ║");
-            System.out.println("╠══════════════════════════════════════════════════╣");
-            System.out.println("║  1. Đọc danh sách chức vụ từ file                ║");
-            System.out.println("║  2. Thêm chức vụ mới                             ║");
-            System.out.println("║  3. Xóa chức vụ theo mã                          ║");
-            System.out.println("║  4. Sửa thông tin chức vụ                        ║");
-            System.out.println("║  5. Tìm kiếm chức vụ theo mã                     ║");
-            System.out.println("║  6. Hiển thị danh sách chức vụ                   ║");
-            System.out.println("║  7. Thống kê tổng phụ cấp                        ║");
-            System.out.println("║  8. Ghi danh sách chức vụ ra file                ║");
-            System.out.println("║  9. Thống kê phụ cấp cao nhất & thấp nhất        ║");
-            System.out.println("║  0. Thoát chương trình                           ║");
-            System.out.println("╚══════════════════════════════════════════════════╝");
-            System.out.print("👉 Chọn chức năng: ");
+   public void Menu() throws IOException {
+    Scanner sc = new Scanner(System.in);
+    int chon;
+    do {
+        System.out.println("\n╔════════════════════════════════════════════════════════╗");
+        System.out.println("║            QUẢN LÝ DANH SÁCH CHỨC VỤ (CẬP NHẬT)        ║");
+        System.out.println("╠════════════════════════════════════════════════════════╣");
+        System.out.println("║  1. Đọc danh sách chức vụ từ file                      ║");
+        System.out.println("║  2. Thêm chức vụ (nhập tương tác)                      ║");
+        System.out.println("║  3. Xóa chức vụ theo mã (nhập tương tác)               ║");
+        System.out.println("║  4. Sửa thông tin chức vụ (nhập tương tác)             ║");
+        System.out.println("║  5. Tìm kiếm chức vụ theo mã                           ║");
+        System.out.println("║  6. Hiển thị danh sách chức vụ                         ║");
+        System.out.println("║  7. Thống kê tổng phụ cấp                              ║");
+        System.out.println("║  8. Ghi danh sách chức vụ ra file                      ║");
+        System.out.println("║  9. Thống kê phụ cấp cao nhất & thấp nhất              ║");
+        System.out.println("║ 10. Thêm chức vụ bằng tham số (gọi Them(ChucVu))       ║");
+        System.out.println("║ 11. Sửa chức vụ bằng tham số (gọi Sua(ma, ChucVu))     ║");
+        System.out.println("║ 12. Xóa chức vụ bằng tham số (gọi Xoa(ma))             ║");
+        System.out.println("║  0. Thoát chương trình                                 ║");
+        System.out.println("╚════════════════════════════════════════════════════════╝");
+        System.out.print("👉 Chọn chức năng: ");
 
-            while (!sc.hasNextInt()) {
-                System.out.print("❌ Vui lòng nhập số: ");
-                sc.next();
-            }
-            chon = sc.nextInt();
-            sc.nextLine();
+        while (!sc.hasNextInt()) {
+            System.out.print("❌ Vui lòng nhập số: ");
+            sc.next();
+        }
+        chon = sc.nextInt();
+        sc.nextLine();
 
-            switch (chon) {
-                case 1:
-                    DocFile();
-                    break;
-                case 2:
-                    Them();
-                    break;
-                case 3:
-                    Xoa();
-                    break;
-                case 4:
-                    Sua();
-                    break;
-                case 5:
-                    TimKiem();
-                    break;
-                case 6:
-                    Xuat();
-                    break;
-                case 7:
-                    ThongKe();
-                    break;
-                case 8:
-                    GhiFile();
-                    break;
-                case 9:
+        switch (chon) {
+            case 1:
+                DocFile();
+                break;
+            case 2:
+                Them(); // tương tác
+                break;
+            case 3:
+                Xoa(); // tương tác
+                break;
+            case 4:
+                Sua(); // tương tác
+                break;
+            case 5:
+                TimKiem();
+                break;
+            case 6:
+                Xuat();
+                break;
+            case 7:
+                ThongKe();
+                break;
+            case 8:
+                GhiFile();
+                break;
+            case 9:
                 ThongKePhuCapCaoThap();
                 break;
-                case 0:
-                    System.out.println("\n👋 Cảm ơn bạn đã sử dụng chương trình quản lý chức vụ!");
+            case 10: {
+                // Thêm bằng tham số
+                if (count >= MAX) {
+                    System.out.println("❌ Danh sách đã đầy, không thể thêm!");
                     break;
-                default:
-                    System.out.println("❌ Lựa chọn không hợp lệ! Vui lòng chọn lại!");
+                }
+                System.out.print("Nhập mã chức vụ: ");
+                String ma = sc.nextLine().trim();
+                // kiểm tra trùng mã nhanh
+                boolean exists = false;
+                for (int i = 0; i < count; i++) {
+                    if (ds[i].getMacv().equalsIgnoreCase(ma)) {
+                        exists = true;
+                        break;
+                    }
+                }
+                if (exists) {
+                    System.out.println("⚠️ Mã chức vụ đã tồn tại: " + ma);
+                    break;
+                }
+                System.out.print("Nhập tên chức vụ: ");
+                String ten = sc.nextLine().trim();
+                System.out.print("Nhập phụ cấp (số): ");
+                double phucap = 0;
+                try {
+                    phucap = Double.parseDouble(sc.nextLine().trim());
+                } catch (NumberFormatException e) {
+                    System.out.println("❌ Giá trị phụ cấp không hợp lệ. Hủy thao tác.");
+                    break;
+                }
+                ChucVu cvMoi = new ChucVu(ma, ten, phucap);
+                Them(cvMoi);
+                break;
             }
+            case 11: {
+                // Sửa bằng tham số
+                System.out.print("Nhập mã chức vụ cần sửa: ");
+                String maSua = sc.nextLine().trim();
+                // tìm xem có tồn tại
+                int idx = -1;
+                for (int i = 0; i < count; i++) {
+                    if (ds[i].getMacv().equalsIgnoreCase(maSua)) {
+                        idx = i;
+                        break;
+                    }
+                }
+                if (idx == -1) {
+                    System.out.println("❌ Không tìm thấy mã chức vụ: " + maSua);
+                    break;
+                }
+                System.out.println("Nhập thông tin mới cho chức vụ (để trống giữ nguyên):");
+                System.out.print("Tên mới: ");
+                String tenMoi = sc.nextLine().trim();
+                System.out.print("Phụ cấp mới (để trống nếu không đổi): ");
+                String phuCapStr = sc.nextLine().trim();
 
-        } while (chon != 0);
-    }
+                String finalTen = tenMoi.isEmpty() ? ds[idx].getTencv() : tenMoi;
+                double finalPhuCap;
+                if (phuCapStr.isEmpty()) {
+                    finalPhuCap = ds[idx].getPhucap();
+                } else {
+                    try {
+                        finalPhuCap = Double.parseDouble(phuCapStr);
+                    } catch (NumberFormatException e) {
+                        System.out.println("❌ Giá trị phụ cấp không hợp lệ. Hủy thao tác.");
+                        break;
+                    }
+                }
+                ChucVu thongTinMoi = new ChucVu(maSua, finalTen, finalPhuCap);
+                Sua(maSua, thongTinMoi);
+                break;
+            }
+            case 12: {
+                // Xóa bằng tham số
+                System.out.print("Nhập mã chức vụ cần xóa: ");
+                String maXoa = sc.nextLine().trim();
+                // xác nhận xóa
+                System.out.print("Bạn có chắc muốn xóa chức vụ có mã '" + maXoa + "'? (y/n): ");
+                String confirm = sc.nextLine().trim();
+                if (confirm.equalsIgnoreCase("y") || confirm.equalsIgnoreCase("yes")) {
+                    Xoa(maXoa);
+                } else {
+                    System.out.println("Hủy xóa.");
+                }
+                break;
+            }
+            case 0:
+                System.out.println("\n👋 Cảm ơn bạn đã sử dụng chương trình quản lý chức vụ!");
+                break;
+            default:
+                System.out.println("❌ Lựa chọn không hợp lệ! Vui lòng chọn lại!");
+        }
+
+    } while (chon != 0);
+}
 }
 
 

@@ -20,6 +20,14 @@ public class ThuongPhat  {
         this.lyDo = lyDo;
         this.ngay = ngay;
     }
+    public ThuongPhat(ThuongPhat tp){
+        this.maTP = tp.maTP;
+        this.maNV = tp.maNV;
+        this.soTien = tp.soTien;
+        this.loai = tp.loai;
+        this.lyDo = tp.lyDo;
+        this.ngay = tp.ngay;
+    }
 
     // Getters
     public String getMaTP() {

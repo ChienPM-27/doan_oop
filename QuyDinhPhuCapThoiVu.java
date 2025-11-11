@@ -15,6 +15,13 @@ public class QuyDinhPhuCapThoiVu{
         this.mucphucap = mucphucap;
         this.donvitinh = donvitinh;
     }
+    public QuyDinhPhuCapThoiVu(QuyDinhPhuCapThoiVu other) {
+        if (other == null) return;
+        this.maPC = other.maPC;
+        this.loaithanhvien = other.loaithanhvien;
+        this.mucphucap = other.mucphucap;
+        this.donvitinh = other.donvitinh;
+    }
 
     //ham set de lay thong tin
     public void setMaPC(String maPC) {this.maPC = maPC;}

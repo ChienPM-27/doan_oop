@@ -8,7 +8,6 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
-
 public class DanhSachNhanSu {
     private NhanSu[] dsNhanSu;
     private int soLuong;
@@ -52,7 +51,6 @@ public class DanhSachNhanSu {
                 return;
         }
         
-        // Kiểm tra trùng mã
         System.out.println();
         ns.nhap();
         
@@ -63,55 +61,79 @@ public class DanhSachNhanSu {
         
         dsNhanSu[soLuong++] = ns;
         System.out.println("✅ Thêm nhân sự thành công!");
+        ghiFile();
     }
+    
+    // ===== THÊM NHÂN SỰ (CÓ THAM SỐ)  =====
+    public boolean themNhanSu(NhanSu ns) {
+        if (soLuong >= MAX) {
+            System.out.println("❌ Danh sách đã đầy!");
+            return false;
+        }
+        
+        if (ns == null) {
+            System.out.println("❌ Đối tượng nhân sự không hợp lệ!");
+            return false;
+        }
+        
+        // Kiểm tra trùng mã
+        if (timTheoMa(ns.getMa()) != null) {
+            System.out.println("❌ Mã nhân viên " + ns.getMa() + " đã tồn tại!");
+            return false;
+        }
+        
+        // Thêm vào cuối danh sách
+        dsNhanSu[soLuong++] = ns;
+        System.out.println("✅ Thêm nhân sự " + ns.getMa() + " thành công!");
+        return true;
+    }
+    
+    // ===== GHI FILE =====
     public void ghiFile() {
-    try (PrintWriter pw = new PrintWriter(
-            new BufferedWriter(
-                new OutputStreamWriter(
-                    new FileOutputStream("DanhSachNhanSu.txt"), StandardCharsets.UTF_8)))) {
+        try (PrintWriter pw = new PrintWriter(
+                new BufferedWriter(
+                    new OutputStreamWriter(
+                        new FileOutputStream("DanhSachNhanSu.txt"), StandardCharsets.UTF_8)))) {
 
-        for (int i = 0; i < soLuong; i++) {
-            NhanSu ns = dsNhanSu[i];
-            if (ns == null) continue;
+            for (int i = 0; i < soLuong; i++) {
+                NhanSu ns = dsNhanSu[i];
+                if (ns == null) continue;
 
-            StringBuilder sb = new StringBuilder();
-            // 0..10 chung
-            sb.append(ns.getLoaiNhanVien()).append(",")
-              .append(ns.getMa()).append(",")
-              .append(ns.getHo()).append(",")
-              .append(ns.getTen()).append(",")
-              .append(ns.getGt()).append(",")
-              .append(ns.getDiachi()).append(",")
-              .append(ns.getTrangthai()).append(",")
-              .append(ns.getMachucvu()).append(",")
-              .append(ns.getNgay()).append(",")
-              .append(ns.getThang()).append(",")
-              .append(ns.getNam());
+                StringBuilder sb = new StringBuilder();
+                sb.append(ns.getLoaiNhanVien()).append(",")
+                  .append(ns.getMa()).append(",")
+                  .append(ns.getHo()).append(",")
+                  .append(ns.getTen()).append(",")
+                  .append(ns.getGt()).append(",")
+                  .append(ns.getDiachi()).append(",")
+                  .append(ns.getTrangthai()).append(",")
+                  .append(ns.getMachucvu()).append(",")
+                  .append(ns.getNgay()).append(",")
+                  .append(ns.getThang()).append(",")
+                  .append(ns.getNam());
 
-            if (ns.getLoaiNhanVien() == 1) {
-                // nhân viên chính thức: luongcoban, ngayvaolam, phongban
-                NhanVienChinhThuc nv = (NhanVienChinhThuc) ns;
-                sb.append(",").append(nv.getLuongcoban())
-                  .append(",").append(nv.getNgayvaolam())
-                  .append(",").append(nv.getPhongban());
-            } else {
-                // nhân viên thực tập: thoigiantt, truonghoc, nganhhoc
-                NhanVienThucTap tt = (NhanVienThucTap) ns;
-                sb.append(",").append(tt.getThoigianthuctap())
-                  .append(",").append(tt.getTruonghoc())
-                  .append(",").append(tt.getNganhhoc());
+                if (ns.getLoaiNhanVien() == 1) {
+                    NhanVienChinhThuc nv = (NhanVienChinhThuc) ns;
+                    sb.append(",").append(nv.getLuongcoban())
+                      .append(",").append(nv.getNgayvaolam())
+                      .append(",").append(nv.getPhongban());
+                } else {
+                    NhanVienThucTap tt = (NhanVienThucTap) ns;
+                    sb.append(",").append(tt.getThoigianthuctap())
+                      .append(",").append(tt.getTruonghoc())
+                      .append(",").append(tt.getNganhhoc());
+                }
+
+                pw.println(sb.toString());
             }
 
-            pw.println(sb.toString());
+            pw.flush();
+            System.out.println("✅ Ghi file DanhSachNhanSu.txt thành công (" + soLuong + " nhân sự).");
+
+        } catch (IOException e) {
+            System.out.println("❌ Lỗi ghi file: " + e.getMessage());
         }
-
-        pw.flush();
-        System.out.println("✅ Ghi file DSRNhanSu.txt thành công (" + soLuong + " nhân sự).");
-
-    } catch (IOException e) {
-        System.out.println("❌ Lỗi ghi file: " + e.getMessage());
     }
-}
     
     // ===== XÓA NHÂN SỰ =====
     public void xoaNhanSu() {
@@ -120,12 +142,12 @@ public class DanhSachNhanSu {
         
         for (int i = 0; i < soLuong; i++) {
             if (dsNhanSu[i].getMa().equalsIgnoreCase(ma)) {
-                // Dịch chuyển mảng
                 for (int j = i; j < soLuong - 1; j++) {
                     dsNhanSu[j] = dsNhanSu[j + 1];
                 }
                 dsNhanSu[--soLuong] = null;
                 System.out.println("✅ Xóa nhân sự thành công!");
+                ghiFile();
                 return;
             }
         }
@@ -148,11 +170,56 @@ public class DanhSachNhanSu {
         
         NhanSu ns = timTheoMa(ma);
         if (ns != null) {
-            System.out.println("\n✅ Tìm thấy nhân sự:");
-            ns.xuat();
+            System.out.println("\n✅ Tìm thấy nhân sú:");
+            hienThiDanhSachDang1Cot(new NhanSu[]{ns}, 1);
         } else {
             System.out.println("❌ Không tìm thấy mã nhân viên: " + ma);
         }
+    }
+    
+    // ===== TÌM KIẾM THEO TÊN (KHÔNG THAM SỐ) =====
+    public void timKiemTheoTen() {
+        System.out.print("\nNhập tên nhân viên cần tìm: ");
+        String ten = sc.nextLine().trim().toLowerCase();
+        
+        NhanSu[] ketQua = new NhanSu[MAX];
+        int dem = 0;
+        
+        for (int i = 0; i < soLuong; i++) {
+            if (dsNhanSu[i].getTen().toLowerCase().contains(ten)) {
+                ketQua[dem++] = dsNhanSu[i];
+            }
+        }
+        
+        if (dem == 0) {
+            System.out.println("❌ Không tìm thấy nhân viên có tên: " + ten);
+        } else {
+            System.out.println("\n✅ Tìm thấy " + dem + " nhân viên:");
+            hienThiDanhSachDang1Cot(ketQua, dem);
+        }
+    }
+    
+    // ===== TÌM KIẾM THEO TÊN (CÓ THAM SỐ) =====
+    public NhanSu[] timKiemTheoTen(String ten) {
+        if (ten == null || ten.trim().isEmpty()) {
+            return new NhanSu[0];
+        }
+        
+        NhanSu[] ketQua = new NhanSu[MAX];
+        int dem = 0;
+        
+        String tenTimKiem = ten.trim().toLowerCase();
+        for (int i = 0; i < soLuong; i++) {
+            if (dsNhanSu[i].getTen().toLowerCase().contains(tenTimKiem)) {
+                ketQua[dem++] = dsNhanSu[i];
+            }
+        }
+        
+        // Tạo mảng đúng kích thước
+        NhanSu[] result = new NhanSu[dem];
+        System.arraycopy(ketQua, 0, result, 0, dem);
+        
+        return result;
     }
     
     // ===== TÌM KIẾM THEO LOẠI (ID 1 hoặc 2) =====
@@ -173,29 +240,68 @@ public class DanhSachNhanSu {
             return;
         }
         
-        boolean timThay = false;
-        System.out.println("\n" + "=".repeat(120));
-        
-        if (loai == 1) {
-            System.out.println("DANH SÁCH NHÂN VIÊN CHÍNH THỨC");
-        } else {
-            System.out.println("DANH SÁCH NHÂN VIÊN THỰC TẬP");
-        }
-        
-        System.out.println("=".repeat(120));
+        NhanSu[] ketQua = new NhanSu[MAX];
+        int dem = 0;
         
         for (int i = 0; i < soLuong; i++) {
             if (dsNhanSu[i].getLoaiNhanVien() == loai) {
-                dsNhanSu[i].xuat();
-                System.out.println();
-                timThay = true;
+                ketQua[dem++] = dsNhanSu[i];
             }
         }
         
-        if (!timThay) {
+        if (dem == 0) {
             System.out.println("❌ Không có nhân sự nào thuộc loại này!");
+        } else {
+            if (loai == 1) {
+                System.out.println("\n=== DANH SÁCH NHÂN VIÊN CHÍNH THỨC ===");
+            } else {
+                System.out.println("\n=== DANH SÁCH NHÂN VIÊN THỰC TẬP ===");
+            }
+            hienThiDanhSachDang1Cot(ketQua, dem);
         }
-        System.out.println("=".repeat(120));
+    }
+    
+    // ===== HIỂN THỊ DANH SÁCH DẠNG CỘT (MỚI) =====
+    private void hienThiDanhSachDang1Cot(NhanSu[] ds, int count) {
+        if (count == 0) {
+            System.out.println("❌ Danh sách trống!");
+            return;
+        }
+        
+        System.out.println("\n" + "=".repeat(165));
+        System.out.printf("%-8s | %-15s | %-15s | %-8s | %-12s | %-20s | %-12s | %-10s | %-25s%n",
+                "MÃ NV", "HỌ", "TÊN", "GIỚI TÍNH", "NGÀY SINH", "ĐỊA CHỈ", "TRẠNG THÁI", "MÃ CHỨC VỤ", "LOẠI NHÂN VIÊN");
+        System.out.println("-".repeat(165));
+        
+        for (int i = 0; i < count; i++) {
+            if (ds[i] == null) continue;
+            
+            NhanSu ns = ds[i];
+            System.out.printf("%-8s | %-15s | %-15s | %-8s | %02d/%02d/%04d   | %-20s | %-12s | %-10s | %-25s%n",
+                    ns.getMa(),
+                    chuanHoaChuoi(ns.getHo(), 15),
+                    chuanHoaChuoi(ns.getTen(), 15),
+                    ns.getGt(),
+                    ns.getNgay(),
+                    ns.getThang(),
+                    ns.getNam(),
+                    chuanHoaChuoi(ns.getDiachi(), 20),
+                    chuanHoaChuoi(ns.getTrangthai(), 12),
+                    ns.getMachucvu(),
+                    ns.getLoaiNV());
+        }
+        
+        System.out.println("=".repeat(165));
+        System.out.println("Tổng số: " + count + " nhân sự");
+    }
+    
+    // ===== CHUẨN HÓA CHUỖI (HỖ TRỢ) =====
+    private String chuanHoaChuoi(String str, int maxLen) {
+        if (str == null) return "";
+        if (str.length() > maxLen) {
+            return str.substring(0, maxLen - 3) + "...";
+        }
+        return str;
     }
     
     // ===== HIỂN THỊ TẤT CẢ =====
@@ -205,61 +311,46 @@ public class DanhSachNhanSu {
             return;
         }
         
-        System.out.println("\n" + "=".repeat(120));
-        System.out.println("DANH SÁCH TẤT CẢ NHÂN SỰ");
-        System.out.println("=".repeat(120));
-        
-        for (int i = 0; i < soLuong; i++) {
-            dsNhanSu[i].xuat();
-            System.out.println();
-        }
-        
-        System.out.println("=".repeat(120));
-        System.out.println("Tổng số nhân sự: " + soLuong);
+        System.out.println("\n=== DANH SÁCH TẤT CẢ NHÂN SỰ ===");
+        hienThiDanhSachDang1Cot(dsNhanSu, soLuong);
     }
     
-    // ===== HIỂN THI DANH SÁCH NHÂN VIÊN CHÍNH THỨC =====
+    // ===== HIỂN THỊ DANH SÁCH NHÂN VIÊN CHÍNH THỨC =====
     public void hienThiNVChinhThuc() {
+        NhanSu[] ketQua = new NhanSu[MAX];
         int dem = 0;
-        System.out.println("\n" + "=".repeat(120));
-        System.out.println("DANH SÁCH NHÂN VIÊN CHÍNH THỨC");
-        System.out.println("=".repeat(120));
         
         for (int i = 0; i < soLuong; i++) {
             if (dsNhanSu[i].getLoaiNhanVien() == 1) {
-                dsNhanSu[i].xuat();
-                System.out.println();
-                dem++;
+                ketQua[dem++] = dsNhanSu[i];
             }
         }
         
         if (dem == 0) {
             System.out.println("❌ Không có nhân viên chính thức nào!");
+        } else {
+            System.out.println("\n=== DANH SÁCH NHÂN VIÊN CHÍNH THỨC ===");
+            hienThiDanhSachDang1Cot(ketQua, dem);
         }
-        System.out.println("=".repeat(120));
-        System.out.println("Tổng số: " + dem + " nhân viên chính thức");
     }
     
-    // ===== HIỂN THI DANH SÁCH NHÂN VIÊN THỰC TẬP =====
+    // ===== HIỂN THỊ DANH SÁCH NHÂN VIÊN THỰC TẬP =====
     public void hienThiNVThucTap() {
+        NhanSu[] ketQua = new NhanSu[MAX];
         int dem = 0;
-        System.out.println("\n" + "=".repeat(120));
-        System.out.println("DANH SÁCH NHÂN VIÊN THỰC TẬP");
-        System.out.println("=".repeat(120));
         
         for (int i = 0; i < soLuong; i++) {
             if (dsNhanSu[i].getLoaiNhanVien() == 2) {
-                dsNhanSu[i].xuat();
-                System.out.println();
-                dem++;
+                ketQua[dem++] = dsNhanSu[i];
             }
         }
         
         if (dem == 0) {
             System.out.println("❌ Không có nhân viên thực tập nào!");
+        } else {
+            System.out.println("\n=== DANH SÁCH NHÂN VIÊN THỰC TẬP ===");
+            hienThiDanhSachDang1Cot(ketQua, dem);
         }
-        System.out.println("=".repeat(120));
-        System.out.println("Tổng số: " + dem + " nhân viên thực tập");
     }
     
     // ===== THỐNG KÊ =====
@@ -306,32 +397,29 @@ public class DanhSachNhanSu {
         System.out.println("╚════════════════════════════════════════════════╝");
     }
     
-    // ===== THỐNG KÊ THEO PHÒNG BAN (CHỈ NHÂN VIÊN CHÍNH THỨC) =====
+    // ===== THỐNG KÊ THEO PHÒNG BAN =====
     public void thongKeTheoPhongBan() {
         System.out.print("\nNhập tên phòng ban cần thống kê: ");
         String phongban = sc.nextLine().trim();
         
+        NhanSu[] ketQua = new NhanSu[MAX];
         int dem = 0;
-        System.out.println("\n" + "=".repeat(120));
-        System.out.println("NHÂN VIÊN CHÍNH THỨC THUỘC PHÒNG BAN: " + phongban);
-        System.out.println("=".repeat(120));
         
         for (int i = 0; i < soLuong; i++) {
             if (dsNhanSu[i].getLoaiNhanVien() == 1) {
                 NhanVienChinhThuc nv = (NhanVienChinhThuc) dsNhanSu[i];
                 if (nv.getPhongban().equalsIgnoreCase(phongban)) {
-                    nv.xuat();
-                    System.out.println();
-                    dem++;
+                    ketQua[dem++] = nv;
                 }
             }
         }
         
         if (dem == 0) {
             System.out.println("❌ Không có nhân viên nào thuộc phòng ban này!");
+        } else {
+            System.out.println("\n=== NHÂN VIÊN CHÍNH THỨC THUỘC PHÒNG BAN: " + phongban + " ===");
+            hienThiDanhSachDang1Cot(ketQua, dem);
         }
-        System.out.println("=".repeat(120));
-        System.out.println("Tổng số: " + dem + " nhân viên");
     }
     
     // ===== SỬA THÔNG TIN NHÂN SỰ =====
@@ -346,7 +434,7 @@ public class DanhSachNhanSu {
         }
         
         System.out.println("\n✅ Tìm thấy nhân sự:");
-        ns.xuat();
+        hienThiDanhSachDang1Cot(new NhanSu[]{ns}, 1);
         
         System.out.println("\n--- SỬA THÔNG TIN ---");
         System.out.print("Địa chỉ mới (Enter để bỏ qua): ");
@@ -392,8 +480,10 @@ public class DanhSachNhanSu {
         }
         
         System.out.println("✅ Cập nhật thông tin thành công!");
+        ghiFile();
     }
     
+    // ===== ĐỌC FILE =====
     public void docFile() {
         try (BufferedReader br = new BufferedReader(new FileReader("DanhSachNhanSu.txt"))) {
             String line;
@@ -455,9 +545,9 @@ public class DanhSachNhanSu {
         } catch (NumberFormatException e) {
             System.out.println("❌ Lỗi dữ liệu số: " + e.getMessage());
         }
-    }    
-    // ===== MENU CHÍNH =====
-// ===== MENU CHÍNH (CẬP NHẬT) =====
+    }
+    
+   // ===== MENU CHÍNH (CẬP NHẬT) =====
 public void menu() {
     while (true) {
         System.out.println("\n╔══════════════════════════════════════════════╗");
@@ -466,15 +556,16 @@ public void menu() {
         System.out.println("║  1. Thêm nhân sự                             ║");
         System.out.println("║  2. Xóa nhân sự theo mã                      ║");
         System.out.println("║  3. Tìm kiếm theo mã                         ║");
-        System.out.println("║  4. Tìm kiếm theo loại (ID 1 hoặc 2)         ║");
-        System.out.println("║  5. Sửa thông tin nhân sự                    ║");
-        System.out.println("║  6. Hiển thị tất cả nhân sự                  ║");
-        System.out.println("║  7. Hiển thị NV chính thức                   ║");
-        System.out.println("║  8. Hiển thị NV thực tập                     ║");
-        System.out.println("║  9. Thống kê tổng quan                       ║");
-        System.out.println("║ 10. Thống kê theo phòng ban                  ║");
-        System.out.println("║ 11. Đọc dữ liệu từ file                      ║");
-        System.out.println("║ 12. Ghi dữ liệu ra file                      ║");
+        System.out.println("║  4. Tìm kiếm theo tên                        ║");
+        System.out.println("║  5. Tìm kiếm theo loại (ID 1 hoặc 2)         ║");
+        System.out.println("║  6. Sửa thông tin nhân sự                    ║");
+        System.out.println("║  7. Hiển thị tất cả nhân sự                  ║");
+        System.out.println("║  8. Hiển thị NV chính thức                   ║");
+        System.out.println("║  9. Hiển thị NV thực tập                     ║");
+        System.out.println("║ 10. Thống kê tổng quan                       ║");
+        System.out.println("║ 11. Thống kê theo phòng ban                  ║");
+        System.out.println("║ 12. Đọc dữ liệu từ file                      ║");
+        System.out.println("║ 13. Ghi dữ liệu ra file                      ║");
         System.out.println("║  0. Thoát                                    ║");
         System.out.println("╚══════════════════════════════════════════════╝");
         System.out.print("👉 Chọn chức năng: ");
@@ -484,70 +575,70 @@ public void menu() {
         try {
             chon = Integer.parseInt(line);
         } catch (NumberFormatException e) {
-            System.out.println("❌ Vui lòng nhập một số hợp lệ (0-12).");
+            System.out.println("❌ Vui lòng nhập một số hợp lệ (0-13).");
             continue;
         }
 
         switch (chon) {
             case 1:
                 themNhanSu();
-                // tự động lưu sau khi thay đổi dữ liệu
-                ghiFile();
                 break;
             case 2:
                 xoaNhanSu();
-                ghiFile();
                 break;
             case 3:
                 timKiemTheoMa();
                 break;
             case 4:
-                timKiemTheoLoai();
+                timKiemTheoTen();
                 break;
             case 5:
-                suaThongTin();
-                ghiFile();
+                timKiemTheoLoai();
                 break;
             case 6:
-                hienThiTatCa();
+                suaThongTin();
                 break;
             case 7:
-                hienThiNVChinhThuc();
+                hienThiTatCa();
                 break;
             case 8:
-                hienThiNVThucTap();
+                hienThiNVChinhThuc();
                 break;
             case 9:
-                thongKe();
+                hienThiNVThucTap();
                 break;
             case 10:
-                thongKeTheoPhongBan();
+                thongKe();
                 break;
             case 11:
-                // đọc file (thêm dữ liệu vào danh sách hiện tại)
-                docFile();
+                thongKeTheoPhongBan();
                 break;
             case 12:
-                // ghi file thủ công
+                docFile();
+                break;
+            case 13:
                 ghiFile();
                 break;
             case 0:
-                // lưu trước khi thoát
-                ghiFile();
-                System.out.println("\n👋 Cảm ơn bạn đã sử dụng hệ thống!");
-                return;
+                System.out.print("Bạn có chắc muốn thoát? (y/n): ");
+                String confirm = sc.nextLine().trim();
+                if (confirm.equalsIgnoreCase("y")) {
+                    System.out.println("Tạm biệt! 👋");
+                    return; // hoặc System.exit(0);
+                } else {
+                    System.out.println("Đã hủy thoát, quay lại menu.");
+                }
+                break;
             default:
-                System.out.println("❌ Lựa chọn không hợp lệ!");
+                System.out.println("❌ Lựa chọn không hợp lệ. Vui lòng chọn 0-13.");
+                break;
+            }
         }
     }
-}
-
-    
-    public NhanSu[] getDsNhanSu() {
-    return dsNhanSu;
+    public NhanSu[] getDsNhanSu(){
+        return dsNhanSu;
     }
-
-    public int getSoLuong() {
+    public int getSoLuong(){
         return soLuong;
     }
 }

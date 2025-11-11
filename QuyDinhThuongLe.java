@@ -15,6 +15,13 @@ public class QuyDinhThuongLe {
         this.ngayle = ngayle;
         this.mucthuong = mucthuong;
     }
+    public QuyDinhThuongLe(QuyDinhThuongLe other) {
+        if (other == null) return;
+        this.mathuong = other.mathuong;
+        this.tenle = other.tenle;
+        this.ngayle = other.ngayle;
+        this.mucthuong = other.mucthuong;
+    }
 
     // ham set de lay thong tin
 

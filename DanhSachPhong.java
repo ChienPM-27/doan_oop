@@ -3,6 +3,9 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Scanner;
 
 public class DanhSachPhong {
@@ -80,8 +83,7 @@ public class DanhSachPhong {
             System.out.println("❌ Không tìm thấy mã phòng ban: " + mapb);
             return;
         }
-
-        System.out.println("\n✅ Tìm thấy phòng ban:");
+System.out.println("\n✅ Tìm thấy phòng ban:");
         System.out.println(pb);
 
         System.out.println("\n--- SỬA THÔNG TIN ---");
@@ -163,7 +165,7 @@ public class DanhSachPhong {
 
         PhongBan pb = timPhongBan(ma);
         if (pb != null) {
-            System.out.println("\n✅ Tìm thấy:");
+System.out.println("\n✅ Tìm thấy:");
             System.out.println(pb);
         } else {
             System.out.println("❌ Không tìm thấy!");
@@ -261,7 +263,7 @@ public class DanhSachPhong {
     }
 
     private void thongKeTheoNam() {
-        if (soluong == 0) {
+if (soluong == 0) {
             System.out.println("❌ Chưa có dữ liệu!");
             return;
         }
@@ -359,7 +361,7 @@ public class DanhSachPhong {
                 ql[soQL] = maQL;
                 dem[soQL] = 1;
                 soQL++;
-            }
+}
         }
 
         System.out.println("\n=== THỐNG KÊ THEO QUẢN LÝ ===");
@@ -369,38 +371,68 @@ public class DanhSachPhong {
     }
 
 // ===== ĐỌC FILE =====
-    public void docFile() {
-        try (BufferedReader br = new BufferedReader(new FileReader("DanhSachPhongBan.txt"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                line = line.trim();
-                if (line.isEmpty()) continue;
+// ===== ĐỌC FILE (Phiên bản an toàn, có log lỗi, kiểm tra đầy mảng) =====
+public void docFile() {
+    java.io.File f = new java.io.File("DanhSachPhong.txt");
+    if (!f.exists()) {
+        System.out.println("❌ Không tìm thấy file 'DanhSachPhong.txt' trong thư mục hiện tại: " + System.getProperty("user.dir"));
+        return;
+    }
 
-                String[] parts = line.split(",");
-                if (parts.length < 5) {
-                    System.out.println("⚠️ Dòng sai định dạng: " + line);
-                    continue;
-                }
+    // Nếu muốn ghi đè dữ liệu đang có: reset soluong về 0
+    // Nếu muốn append, bỏ dòng dưới
+    soluong = 0;
 
-                String mapb = parts[0];
-                String maql = parts[1];
-                String tenpb = parts[2];
-                String ngaythanhlap = parts[3];
-                String maduan = parts[4];
+    try (BufferedReader br = new BufferedReader(new FileReader(f))) {
+        String line;
+        int lineNo = 0;
+        while ((line = br.readLine()) != null) {
+            lineNo++;
+            line = line.trim();
+            if (line.isEmpty()) continue;
 
-                dsPhongBan[soluong++] = new PhongBan(mapb, maql, tenpb, ngaythanhlap, maduan);
+            // Nếu file dùng dấu phân cách khác (ví dụ ';'), thay đổi ở đây
+            String[] parts = line.split(",");
+
+            // Loại bỏ khoảng trắng ở đầu-cuối mỗi phần
+            for (int k = 0; k < parts.length; k++) {
+                parts[k] = parts[k].trim();
             }
 
-            System.out.println("✅ Đọc file DanhSachPhongBan.txt thành công (" + soluong + " phòng ban).");
+            if (parts.length < 5) {
+                System.out.println("⚠️ Dòng " + lineNo + " sai định dạng (cần >=5 trường, tìm được " + parts.length + "): " + line);
+                continue;
+            }
 
-        } catch (IOException e) {
-            System.out.println("❌ Lỗi đọc file: " + e.getMessage());
+            if (soluong >= dsPhongBan.length) {
+                System.out.println("⚠️ Danh sách đã đầy (max = " + dsPhongBan.length + "). Dừng đọc ở dòng " + lineNo + ".");
+                break;
+            }
+
+            String mapb = parts[0];
+            String maql = parts[1];
+            String tenpb = parts[2];
+            String ngaythanhlap = parts[3];
+            String maduan = parts[4];
+
+            // Tùy chọn: kiểm tra định dạng ngày (ví dụ yyyy-MM-dd hoặc dd/MM/yyyy)
+            // Nếu bạn chắc chắn file ghi yyyy-MM-dd, có thể validate bằng LocalDate.parse
+            // Mình để mặc định là không parse, chỉ lưu chuỗi
+
+            dsPhongBan[soluong++] = new PhongBan(mapb, maql, tenpb, ngaythanhlap, maduan);
         }
+
+        System.out.println("✅ Đọc file DanhSachPhong.txt hoàn tất. Đã nạp: " + soluong + " phòng ban.");
+    } catch (IOException e) {
+        System.out.println("❌ Lỗi đọc file: " + e.getMessage());
+        e.printStackTrace(); // để debug thêm nếu muốn
     }
+}
+
 
     // ===== GHI FILE =====
     public void ghiFile() {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("DanhSachPhongBan.txt"))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("DanhSachPhong.txt"))) {
             for (int i = 0; i < soluong; i++) {
                 PhongBan pb = dsPhongBan[i];
                 String line = pb.getMapb() + "," + 
@@ -411,7 +443,7 @@ public class DanhSachPhong {
                 bw.write(line);
                 bw.newLine();
             }
-            System.out.println("✅ Ghi file DanhSachPhongBan.txt thành công (" + soluong + " phòng ban).");
+            System.out.println("✅ Ghi file DanhSachPhong.txt thành công (" + soluong + " phòng ban).");
         } catch (IOException e) {
             System.out.println("❌ Lỗi ghi file: " + e.getMessage());
         }
@@ -428,23 +460,29 @@ public class DanhSachPhong {
     }
 
 // ===== MENU =====
+// ===== MENU =====
 public void menu() {
     int chon;
     do {
         System.out.println("\n╔══════════════════════════════════════╗");
-        System.out.println("║      QUẢN LÝ PHÒNG BAN                 ║");
+        System.out.println("║           QUẢN LÝ PHÒNG BAN            ║");
         System.out.println("╠════════════════════════════════════════╣");
         System.out.println("║  1. Thêm phòng ban                     ║");
-        System.out.println("║  2. Hiển thị danh sách                 ║");
+System.out.println("║  2. Hiển thị danh sách                 ║");
         System.out.println("║  3. Sửa thông tin phòng ban            ║");
         System.out.println("║  4. Xóa phòng ban                      ║");
         System.out.println("║  5. Tìm kiếm phòng ban                 ║");
         System.out.println("║  6. Thống kê                           ║");
-        System.out.println("║  7. Ghi file                           ║");  // <-- ĐÃ THÊM
+        System.out.println("║  7. Đọc danh sách từ file              ║");
+        System.out.println("║  8. Ghi danh sách ra file              ║");
         System.out.println("║  0. Thoát                              ║");
         System.out.println("╚════════════════════════════════════════╝");
         System.out.print("👉 Chọn chức năng: ");
-        
+
+        while (!sc.hasNextInt()) {
+            System.out.print("❌ Vui lòng nhập số: ");
+            sc.next();
+        }
         chon = sc.nextInt();
         sc.nextLine();
 
@@ -468,7 +506,10 @@ public void menu() {
                 thongKe();
                 break;
             case 7:
-                ghiFile();  // <-- ĐÃ THÊM
+                docFile();   // Đọc từ file
+                break;
+            case 8:
+                ghiFile();   // Ghi ra file
                 break;
             case 0:
                 System.out.println("👋 Thoát quản lý phòng ban!");
@@ -478,4 +519,6 @@ public void menu() {
         }
     } while (chon != 0);
 }
+
+
 }

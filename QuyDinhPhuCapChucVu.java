@@ -15,6 +15,13 @@ public class QuyDinhPhuCapChucVu {
         this.phucap = phucap;
         this.ghichu = ghichu;
     }
+    public QuyDinhPhuCapChucVu(QuyDinhPhuCapChucVu other) {
+        if (other == null) return;
+        this.maCV = other.maCV;
+        this.tenCV = other.tenCV;
+        this.phucap = other.phucap;
+        this.ghichu = other.ghichu;
+    }
 
     // ham set de lay thong tin
     public void setMaCV(String maCV) {this.maCV=maCV;}

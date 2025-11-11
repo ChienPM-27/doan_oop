@@ -20,7 +20,7 @@ public class DanhSachBangLuong {
     //  ĐỌC FILE
     // ============================================================
     public void docFile() {
-        try (BufferedReader br = new BufferedReader(new FileReader("DanhSachBangLuong.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("DanhSachBangLuong.txt.txt"))) {
             String line;
             soLuong = 0;
 
@@ -48,8 +48,7 @@ public class DanhSachBangLuong {
 
                     BangLuong bl = new BangLuong(maBL, maNv, thang, nam, luongCoBan, phuCap, truLuong);
 
-                    // Gán trực tiếp các giá trị đã tính (cần thêm setter vào BangLuong.java)
-                    // Tạm thời tính lại với mảng thưởng phạt rỗng
+                    // Tính lại tổng lương (mảng thưởng phạt rỗng ở đây)
                     bl.tinhTongLuong(new ThuongPhat[0], 0);
 
                     dsBangLuong[soLuong++] = bl;
@@ -59,10 +58,10 @@ public class DanhSachBangLuong {
                 }
             }
 
-            System.out.println("✅ Đọc file DanhSachBangLuong.txt thành công (" + soLuong + " bảng lương).");
+            System.out.println("✅ Đọc file DanhSachBangLuong.txt.txt thành công (" + soLuong + " bảng lương).");
 
         } catch (IOException e) {
-            System.out.println("⚠️ Không tìm thấy file DanhSachBangLuong.txt hoặc file rỗng.");
+            System.out.println("⚠️ Không tìm thấy file DanhSachBangLuong.txt.txt hoặc file rỗng.");
         }
     }
 
@@ -70,7 +69,7 @@ public class DanhSachBangLuong {
     //  GHI FILE
     // ============================================================
     public void ghiFile() {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("DanhSachBangLuong.txt"))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("DanhSachBangLuong.txt.txt"))) {
             for (int i = 0; i < soLuong; i++) {
                 BangLuong bl = dsBangLuong[i];
                 if (bl == null) continue;
@@ -90,7 +89,7 @@ public class DanhSachBangLuong {
                 bw.newLine();
             }
 
-            System.out.println("✅ Ghi file DanhSachBangLuong.txt thành công (" + soLuong + " bảng lương).");
+            System.out.println("✅ Ghi file DanhSachBangLuong.txt.txt thành công (" + soLuong + " bảng lương).");
 
         } catch (IOException e) {
             System.out.println("❌ Lỗi ghi file: " + e.getMessage());
@@ -98,7 +97,124 @@ public class DanhSachBangLuong {
     }
 
     // ============================================================
-    //  1. TẠO BẢNG LƯƠNG THÁNG
+    //  HÀM THÊM / SỬA / XÓA CÓ THAM SỐ
+    // ============================================================
+
+    /**
+     * Thêm 1 bảng lương (có tham số). Nếu dsThuongPhat != null thì sẽ tính thưởng/phạt.
+     * Trả về true nếu thêm thành công.
+     */
+    public boolean them(BangLuong bl, DanhSachThuongPhat dsThuongPhat) {
+        if (bl == null) return false;
+        if (soLuong >= MAX) {
+            System.out.println("❌ Danh sách bảng lương đã đầy.");
+            return false;
+        }
+        // Kiểm tra trùng mã bảng lương (maBL)
+        for (int i = 0; i < soLuong; i++) {
+            if (dsBangLuong[i] != null && dsBangLuong[i].getMaBL().equalsIgnoreCase(bl.getMaBL())) {
+                System.out.println("⚠️ Mã bảng lương đã tồn tại: " + bl.getMaBL());
+                return false;
+            }
+        }
+        // Tính lại tổng lương nếu có dsThuongPhat
+        if (dsThuongPhat != null) {
+            bl.tinhTongLuong(dsThuongPhat.getDsThuongPhat(), dsThuongPhat.getSoLuong());
+        } else {
+            bl.tinhTongLuong(new ThuongPhat[0], 0);
+        }
+        dsBangLuong[soLuong++] = bl;
+        ghiFile();
+        System.out.println("✅ Đã thêm bảng lương: " + bl.getMaBL());
+        return true;
+    }
+
+    /**
+     * Sửa bảng lương theo mã bảng lương (maBL). newBl chứa thông tin mới (các trường sẽ ghi đè).
+     * Nếu dsThuongPhat != null sẽ tính lại thưởng/phạt.
+     */
+    public boolean sua(String maBL, BangLuong newBl, DanhSachThuongPhat dsThuongPhat) {
+        if (maBL == null || newBl == null) return false;
+        for (int i = 0; i < soLuong; i++) {
+            if (dsBangLuong[i] != null && dsBangLuong[i].getMaBL().equalsIgnoreCase(maBL)) {
+                // Cập nhật trường (giữ maBL ban đầu nếu newBl.getMaBL() rỗng)
+                dsBangLuong[i].setMaBL(newBl.getMaBL() == null || newBl.getMaBL().isEmpty() ? dsBangLuong[i].getMaBL() : newBl.getMaBL());
+                dsBangLuong[i].setMaNv(newBl.getMaNv() == null || newBl.getMaNv().isEmpty() ? dsBangLuong[i].getMaNv() : newBl.getMaNv());
+                dsBangLuong[i].setThang(newBl.getThang() == 0 ? dsBangLuong[i].getThang() : newBl.getThang());
+                dsBangLuong[i].setNam(newBl.getNam() == 0 ? dsBangLuong[i].getNam() : newBl.getNam());
+                dsBangLuong[i].setLuongCoBan(newBl.getLuongCoBan() == 0 ? dsBangLuong[i].getLuongCoBan() : newBl.getLuongCoBan());
+                dsBangLuong[i].setPhuCap(newBl.getPhuCap() == 0 ? dsBangLuong[i].getPhuCap() : newBl.getPhuCap());
+                dsBangLuong[i].setTruLuong(newBl.getTruLuong() == 0 ? dsBangLuong[i].getTruLuong() : newBl.getTruLuong());
+
+                // Tính lại tổng lương
+                if (dsThuongPhat != null) {
+                    dsBangLuong[i].tinhTongLuong(dsThuongPhat.getDsThuongPhat(), dsThuongPhat.getSoLuong());
+                } else {
+                    dsBangLuong[i].tinhTongLuong(new ThuongPhat[0], 0);
+                }
+
+                ghiFile();
+                System.out.println("✅ Đã sửa bảng lương: " + maBL);
+                return true;
+            }
+        }
+        System.out.println("❌ Không tìm thấy mã bảng lương: " + maBL);
+        return false;
+    }
+
+    /**
+     * Xóa bảng lương theo mã bảng lương (maBL).
+     */
+    public boolean xoaByMaBL(String maBL) {
+        if (maBL == null) return false;
+        for (int i = 0; i < soLuong; i++) {
+            if (dsBangLuong[i] != null && dsBangLuong[i].getMaBL().equalsIgnoreCase(maBL)) {
+                // Dịch mảng
+                for (int j = i; j < soLuong - 1; j++) {
+                    dsBangLuong[j] = dsBangLuong[j + 1];
+                }
+                dsBangLuong[--soLuong] = null;
+                ghiFile();
+                System.out.println("✅ Đã xóa bảng lương: " + maBL);
+                return true;
+            }
+        }
+        System.out.println("❌ Không tìm thấy mã bảng lương: " + maBL);
+        return false;
+    }
+
+    /**
+     * Xóa bảng lương theo mã nhân viên + tháng + năm (có thể xóa nhiều bản cùng mã + tháng + năm).
+     */
+    public boolean xoaByNhanVienThang(String maNv, int thang, int nam) {
+        if (maNv == null) return false;
+        int j = 0;
+        boolean found = false;
+        for (int i = 0; i < soLuong; i++) {
+            if (dsBangLuong[i] != null &&
+                    dsBangLuong[i].getMaNv().equalsIgnoreCase(maNv) &&
+                    dsBangLuong[i].getThang() == thang &&
+                    dsBangLuong[i].getNam() == nam) {
+                found = true;
+                // skip (xóa)
+            } else {
+                dsBangLuong[j++] = dsBangLuong[i];
+            }
+        }
+        // Null phần còn lại
+        for (int k = j; k < soLuong; k++) dsBangLuong[k] = null;
+        soLuong = j;
+        if (found) {
+            ghiFile();
+            System.out.println("✅ Đã xóa bảng lương của NV " + maNv + " tháng " + thang + "/" + nam);
+        } else {
+            System.out.println("❌ Không tìm thấy bảng lương của NV " + maNv + " tháng " + thang + "/" + nam);
+        }
+        return found;
+    }
+
+    // ============================================================
+    //  1. TẠO BẢNG LƯƠNG THÁNG (giữ nguyên)
     // ============================================================
     public void taoBangLuongThang(DanhSachNhanSu dsNhanSu,
                                   DanhSachChucVu dsChucVu,
@@ -196,7 +312,7 @@ public class DanhSachBangLuong {
     }
 
     // ============================================================
-    //  3. SỬA BẢNG LƯƠNG
+    //  3. SỬA BẢNG LƯƠNG (tương tác, vẫn giữ)
     // ============================================================
     public void suaBangLuong(DanhSachThuongPhat dsThuongPhat) {
         System.out.print("\nNhập mã nhân viên: ");
@@ -260,7 +376,7 @@ public class DanhSachBangLuong {
     }
 
     // ============================================================
-    //  4. XÓA BẢNG LƯƠNG
+    //  4. XÓA BẢNG LƯƠNG (tương tác, vẫn giữ)
     // ============================================================
     public void xoaBangLuong() {
         System.out.println("\n=== XÓA BẢNG LƯƠNG ===");
@@ -583,11 +699,13 @@ public class DanhSachBangLuong {
                 dsBangLuong[j++] = dsBangLuong[i];
             }
         }
+        // clear rest
+        for (int k = j; k < soLuong; k++) dsBangLuong[k] = null;
         soLuong = j;
     }
 
     // ============================================================
-    //  MENU CHÍNH
+    //  MENU CHÍNH (cập nhật — thêm lựa chọn gọi hàm có tham số)
     // ============================================================
     public void menu(DanhSachNhanSu dsNhanSu,
                      DanhSachChucVu dsChucVu,
@@ -595,21 +713,29 @@ public class DanhSachBangLuong {
                      DanhSachThuongPhat dsThuongPhat) {
         int chon;
         do {
-            System.out.println("\n╔══════════════════════════════════════╗");
-            System.out.println("║      QUẢN LÝ BẢNG LƯƠNG                ║");
-            System.out.println("╠════════════════════════════════════════╣");
-            System.out.println("║  1. Tạo bảng lương tháng               ║");
-            System.out.println("║  2. Xem bảng lương                     ║");
-            System.out.println("║  3. Sửa bảng lương                     ║");
-            System.out.println("║  4. Xóa bảng lương                     ║");
-            System.out.println("║  5. Tìm kiếm bảng lương                ║");
-            System.out.println("║  6. Thống kê bảng lương                ║");
-            System.out.println("║  7. Đọc file DSBangLuong.txt           ║");
-            System.out.println("║  8. Ghi file DSBangLuong.txt           ║");
-            System.out.println("║  0. Thoát                              ║");
-            System.out.println("╚════════════════════════════════════════╝");
+            System.out.println("\n╔════════════════════════════════════════════════════╗");
+            System.out.println("║              QUẢN LÝ BẢNG LƯƠNG (CẬP NHẬT)         ║");
+            System.out.println("╠════════════════════════════════════════════════════╣");
+            System.out.println("║  1. Tạo bảng lương tháng                            ║");
+            System.out.println("║  2. Xem bảng lương                                  ║");
+            System.out.println("║  3. Sửa bảng lương (tương tác)                      ║");
+            System.out.println("║  4. Xóa bảng lương (tương tác)                      ║");
+            System.out.println("║  5. Tìm kiếm bảng lương                             ║");
+            System.out.println("║  6. Thống kê bảng lương                             ║");
+            System.out.println("║  7. Đọc file DSBangLuong.txt                        ║");
+            System.out.println("║  8. Ghi file DSBangLuong.txt                        ║");
+            System.out.println("║  9. Thêm bảng lương (tham số)                       ║");
+            System.out.println("║ 10. Sửa bảng lương theo mã (tham số)                ║");
+            System.out.println("║ 11. Xóa bảng lương theo mã (tham số)                ║");
+            System.out.println("║ 12. Xóa bảng lương theo NV + tháng + năm (tham số)  ║");
+            System.out.println("║  0. Thoát                                           ║");
+            System.out.println("╚════════════════════════════════════════════════════╝");
             System.out.print("Chọn: ");
 
+            while (!sc.hasNextInt()) {
+                System.out.print("❌ Vui lòng nhập số: ");
+                sc.next();
+            }
             chon = sc.nextInt();
             sc.nextLine();
 
@@ -638,6 +764,99 @@ public class DanhSachBangLuong {
                 case 8:
                     ghiFile();
                     break;
+                case 9: {
+                    // Thêm bảng lương bằng tham số (nhập từ bàn phím rồi gọi them(...))
+                    System.out.print("Nhập mã bảng lương: ");
+                    String maBL = sc.nextLine().trim();
+                    System.out.print("Nhập mã nhân viên: ");
+                    String maNV = sc.nextLine().trim();
+                    System.out.print("Nhập tháng: ");
+                    int th = sc.nextInt();
+                    System.out.print("Nhập năm: ");
+                    int na = sc.nextInt();
+                    System.out.print("Nhập lương cơ bản: ");
+                    double lcb = sc.nextDouble();
+                    System.out.print("Nhập phụ cấp: ");
+                    double pc = sc.nextDouble();
+                    System.out.print("Nhập trừ lương: ");
+                    double tru = sc.nextDouble();
+                    sc.nextLine();
+
+                    BangLuong blNew = new BangLuong(maBL, maNV, th, na, lcb, pc, tru);
+                    them(blNew, dsThuongPhat);
+                    break;
+                }
+                case 10: {
+                    // Sửa theo mã bảng lương
+                    System.out.print("Nhập mã bảng lương cần sửa: ");
+                    String maBL = sc.nextLine().trim();
+                    System.out.println("Nhập thông tin mới (để trống / nhập 0 để giữ nguyên):");
+                    System.out.print("Mã bảng lương mới: ");
+                    String maBLmoi = sc.nextLine().trim();
+                    System.out.print("Mã NV mới: ");
+                    String maNVmoi = sc.nextLine().trim();
+                    System.out.print("Tháng mới (0 = giữ): ");
+                    int thMoi = Integer.parseInt(sc.nextLine().trim().isEmpty() ? "0" : sc.nextLine().trim());
+                    // Note: to avoid double read issues, read carefully
+                    // Simpler approach: read each field with scanner methods:
+                    // but to keep flow, we'll ask sequentially:
+                    // We'll re-prompt in simpler way:
+                    System.out.print("Tháng mới (0 = giữ): ");
+                    thMoi = sc.nextInt();
+                    System.out.print("Năm mới (0 = giữ): ");
+                    int namMoi = sc.nextInt();
+                    System.out.print("Lương cơ bản mới (0 = giữ): ");
+                    double lcbMoi = sc.nextDouble();
+                    System.out.print("Phụ cấp mới (0 = giữ): ");
+                    double pcMoi = sc.nextDouble();
+                    System.out.print("Trừ lương mới (0 = giữ): ");
+                    double truMoi = sc.nextDouble();
+                    sc.nextLine();
+
+                    BangLuong newBl = new BangLuong(
+                            maBLmoi.isEmpty() ? maBL : maBLmoi, // nếu ko nhập mã mới thì giữ mã cũ
+                            maNVmoi.isEmpty() ? "" : maNVmoi,
+                            thMoi,
+                            namMoi,
+                            lcbMoi,
+                            pcMoi,
+                            truMoi
+                    );
+                    // Nếu newBl chứa empty maNV (""), trong hàm sua sẽ giữ nguyên
+                    sua(maBL, newBl, dsThuongPhat);
+                    break;
+                }
+                case 11: {
+                    // Xóa theo mã bảng lương
+                    System.out.print("Nhập mã bảng lương cần xóa: ");
+                    String maBL = sc.nextLine().trim();
+                    System.out.print("Bạn có chắc muốn xóa không? (y/n): ");
+                    String conf = sc.nextLine().trim();
+                    if (conf.equalsIgnoreCase("y") || conf.equalsIgnoreCase("yes")) {
+                        xoaByMaBL(maBL);
+                    } else {
+                        System.out.println("Hủy xóa.");
+                    }
+                    break;
+                }
+                case 12: {
+                    // Xóa theo NV + tháng + năm
+                    System.out.print("Nhập mã nhân viên: ");
+                    String maNV = sc.nextLine().trim();
+                    System.out.print("Nhập tháng: ");
+                    int th = sc.nextInt();
+                    System.out.print("Nhập năm: ");
+                    int na = sc.nextInt();
+                    sc.nextLine();
+                    System.out.print("Bạn có chắc muốn xóa không? (y/n): ");
+                    String conf2 = sc.nextLine().trim();
+                    if (conf2.equalsIgnoreCase("y") || conf2.equalsIgnoreCase("yes")) {
+                        xoaByNhanVienThang(maNV, th, na);
+                    } else {
+                        System.out.println("Hủy xóa.");
+                    }
+                    break;
+                }
                 case 0:
                     System.out.println("👋 Thoát quản lý bảng lương!");
                     break;

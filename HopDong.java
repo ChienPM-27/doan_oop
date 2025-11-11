@@ -22,6 +22,16 @@ public class HopDong {
         this.trangThai = trangThai;
         this.luongCoBan = luongCoBan;
     }
+    public HopDong(HopDong other) {
+        if (other == null) return;
+        this.maHD = other.maHD;
+        this.manv = other.manv;
+        this.loaiHD = other.loaiHD;
+        this.ngayBD = other.ngayBD;
+        this.ngayKT = other.ngayKT;
+        this.trangThai = other.trangThai;
+        this.luongCoBan = other.luongCoBan;
+    }
 
     // Getters & Setters
     public String getMaHD() { return maHD; }

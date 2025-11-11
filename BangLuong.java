@@ -24,6 +24,23 @@ public class BangLuong{
         this.phuCap = phuCap;
         this.truLuong = truLuong;
     }
+        // ===== Constructor sao chép =====
+    public BangLuong(BangLuong other) {
+        if (other != null) {
+            this.maBL = other.maBL;
+            this.manv = other.manv;
+            this.thang = other.thang;
+            this.nam = other.nam;
+            this.luongCoBan = other.luongCoBan;
+            this.phuCap = other.phuCap;
+            this.tongThuong = other.tongThuong;
+            this.tongPhat = other.tongPhat;
+            this.truLuong = other.truLuong;
+            this.tongLuong = other.tongLuong;
+        }
+    }
+
+    
 
     // Tính tổng lương
     public void tinhTongLuong(ThuongPhat[] dsThuongPhat, int soLuongTP) {

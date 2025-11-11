@@ -15,6 +15,21 @@ public class PhongBan {
         this.ngaythanhlap = ngaythanhlap;
         duan.setMaDA(maduan);
     }
+    public PhongBan(PhongBan other) {
+        if (other == null) return;
+        this.mapb = other.mapb;
+        this.maql = other.maql;
+        this.tenpb = other.tenpb;
+        this.ngaythanhlap = other.ngaythanhlap;
+
+        // Sao chép sâu đối tượng DuAn (nếu có)
+        if (other.duan != null) {
+            this.duan = new DuAn(other.duan); // dùng constructor sao chép của DuAn
+        } else {
+            this.duan = null;
+        }
+    }
+
 
     public String getMapb() { return mapb; }
     public void setMapb(String mapb) { this.mapb = mapb; }

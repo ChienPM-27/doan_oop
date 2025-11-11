@@ -18,7 +18,7 @@ public class DanhSachChamCongNgay {
 
     // ===== ĐỌC FILE =====
     public void docFile() {
-        try (BufferedReader br = new BufferedReader(new FileReader("DanhSachChamCongNgay.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("DanhSachChamCongNgay.txt.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 line = line.trim();
